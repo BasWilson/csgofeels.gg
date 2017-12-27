@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300');
+
+
+body {
+  margin: 0px;
+}
+
+.textBig {
+  font-family: Montserrat;
+  line-height: 40px;
+}
+
+.crashText {
+  color: red;
+  font-size: 30px;
+}
+
+progress[value]::-webkit-progress-value {
+    background-color: rgb(165, 255, 195);
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+    -webkit-animation: animate-stripes 5s linear infinite;
+        animation: animate-stripes 5s linear infinite;
+}
+
+.progressbar {
+
+  background-color: rgb(165, 255, 195);
+  width: 100%;
+  margin: 10px 0px 10px 0px;
+
+}
+.button {
+  width: auto;
+  height: auto;
+  font-family: Montserrat;
+  font-size: 16px;
+  background-color: rgb(165, 255, 195);
+  padding: 10px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  margin: 10px;
+  text-align: center;
+  color: black;
+}
+
+.button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.textfield {
+  width: 10%;
+  height: auto;
+  font-family: Montserrat;
+  font-size: 16px;
+  background-color: rgb(165, 255, 195);
+  padding: 10px;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+  margin: 10px;
+  color: black;
+  text-align: center;
+}
+
+.headerContainer {
+  width: 100%;
+  height: 60px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.crashContainer {
+  display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

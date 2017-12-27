@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="shortcut icon" href="/css/favicon.png" />
+    <title>Crash</title>
+  </head>
+  <body>
+
+    <div class="headerContainer">
+      <a class="textBig">Crash</a>
+      <a id="playerCount" class="textBig headerTextRight"></a>
+    </div>
+    <progress class="progressbar" value="0" max="10" id="progressBar"></progress>
+
+<div class="crashContainer">
+    <input id="betTextField" class="textfield" value="0.0" placeholder="Bet" ></input>
+    <a id="searchBTN" class="button">Place Bet</a>
+    <a id="output" class="textBig"></a>
+    <a id="output2" class="textBig crashText"></a>
+    <a id="roundhash" class="textBig"></a>
+</div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="/clientside/jquery-3.2.1.min.js"></script>
+    <script src="/clientside/timer.js"></script>
+    <script src="/clientside/clicks.js"></script>
+    <script src="/clientside/matchmaking.js"></script>
+
+  </body>
+
+</html>
