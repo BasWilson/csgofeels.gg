@@ -17,12 +17,12 @@ function startCrashIntermission() {
 
   //Start the progress bar upto next game
   $("#output2").text("Waiting for next game...");
-  var timeleft = 10;
+  var timeleft = 1000;
   var crashtimer = setInterval(function(){
-    document.getElementById("progressBar").value = 10 - --timeleft;
+    document.getElementById("progressBar").value = 0 + --timeleft ;
     if(timeleft <= 0)
       clearInterval(crashtimer);
-  },1000);
+  },10);
 }
 function crashed(crashData) {
 
@@ -31,6 +31,7 @@ function crashed(crashData) {
   $("#output").text("Place a bet");
   $("#output2").text("CRASHED AT "+ crashData.crashPercentage +"%");
   $("#betTextField").removeAttr("disabled");
+  $("#progressBar").val(1000);
   $("#betTextField").attr("cursor", "text");
 }
 
