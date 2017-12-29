@@ -3,6 +3,17 @@ var socket = io();
 var betAmount;
 var crashData;
 
+function crashPercentage() {
+  //Calculates the crash percentage
+  $("#output2").text("Waiting for next game...");
+  var timeleft = 1000;
+  var crashtimer = setInterval(function(){
+    document.getElementById("progressBar").value = 0 + --timeleft ;
+    if(timeleft <= 0)
+      clearInterval(crashtimer);
+  },10);
+}
+
 function startCrash() {
 
   //Set HTML values to active game values
@@ -40,6 +51,10 @@ function placeBet(betAmount) { //Send your bet to the server
   socket.emit('bet', betAmount);
 }
 
+function setCrashValue(n) {
+  $("#output2").text(n + "%");
+}
+
 function getOutCrash() { //Try to leave the current active crash
   socket.emit('getOut');
 }
@@ -63,12 +78,15 @@ socket.on('validBet', function (betAmount) { //Your placed bet has been validate
   $("#output").text('Placed ' + betAmount + ' coins!');
 });
 
-socket.on('crashStart', function (crashData) { // Server has started Crash round
-  startCrash(crashData);
+socket.on('crashStart', function () { // Server has started Crash round
+  startCrash();
 });
 
 socket.on('crashIntermission', function (data) { // Server has started Crash round
   startCrashIntermission();
+});
+socket.on('crashValue', function (n) { // Server has started Crash round
+  setCrashValue(n);
 });
 socket.on('crashed', function (crashData) { // Server crashed it
   crashed(crashData);

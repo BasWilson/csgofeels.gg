@@ -14,6 +14,8 @@ var userID;
 var hash;
 var playercount = 0;
 var CrashActive = false;
+var currentPercentage = 1;
+var crashSpeed = 0;
 
 function startCrash() {
   hash = sha256.create();
@@ -21,7 +23,8 @@ function startCrash() {
   if (CrashActive == true) {
     //Do nothing;
   } else {
-    crashIntermission();
+    //crashIntermission(); old
+    startCrashIntermission();
   }
 }
 
@@ -82,6 +85,70 @@ function calculateCrash(f1, f2, f3, f4, crashFloat, finalCrash) {
   io.emit('crashStart', crashData); //Start the actual crash
 }
 
+function startCrashIntermission() {
+  crash(crashData);
+  var crashtimer = setInterval(function(){
+
+    //Emit the percentage to clients every 100ms
+    currentPercentage = currentPercentage + 0.01; // Add 0.01% every 100ms
+    var n = currentPercentage.toFixed(2); // Change the number to two decimals
+
+    io.emit('crashValue', n); // Emit the crash% every 100ms to client
+    console.log(n);
+
+    if (n > 2) {
+      crashSpeed = crashSpeed + 0.1;
+    }
+    if (n > 5) {
+      crashSpeed = crashSpeed + 0.06;
+    }
+    if (n > 10) {
+      crashSpeed = crashSpeed + 0.1;
+    }
+    if (n > 20) {
+      crashSpeed = crashSpeed + 0.2;
+    }
+
+    if(n == crashData.crashPercentage || n > crashData.crashPercentage) { // Checks if the currentPercentage == crashData%.
+
+      CrashActive = false; // Set to false
+      io.emit('crashed', crashData); // Emit to clients we crashed
+      console.log("Crashed at " + n);
+      clearInterval(crashtimer); // clear the interval
+      n = 1;
+      currentPercentage = 1;
+    }
+
+  },100);
+}
+
+function crashSpeed() {
+
+  if (n > 1.1) {
+    crashSpeed = 110;
+  }
+  if (n > 1.2) {
+    crashSpeed = 120;
+  }
+  if (n > 1.3) {
+    crashSpeed = 130;
+  }
+  if (n > 1.4) {
+    crashSpeed = 140;
+  }
+  if (n > 1.1) {
+    crashSpeed = 110;
+  }
+  if (n > 1.2) {
+    crashSpeed = 120;
+  }
+  if (n > 1.3) {
+    crashSpeed = 130;
+  }
+  if (n > 1.4) {
+    crashSpeed = 140;
+  }
+}
 
 app.use(express.static(path.join(__dirname, 'public')));
 
