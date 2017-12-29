@@ -15,7 +15,7 @@ var hash;
 var playercount = 0;
 var CrashActive = false;
 var currentPercentage = 1;
-var crashSpeed = 0;
+var crashSpeed = 0.01;
 
 function startCrash() {
   hash = sha256.create();
@@ -86,68 +86,56 @@ function calculateCrash(f1, f2, f3, f4, crashFloat, finalCrash) {
 }
 
 function startCrashIntermission() {
-  crash(crashData);
-  var crashtimer = setInterval(function(){
 
-    //Emit the percentage to clients every 100ms
-    currentPercentage = currentPercentage + 0.01; // Add 0.01% every 100ms
-    var n = currentPercentage.toFixed(2); // Change the number to two decimals
+  io.emit('crashIntermission');
+  setTimeout(function(){
+          crash(crashData);
+          var crashtimer = setInterval(function(){
 
-    io.emit('crashValue', n); // Emit the crash% every 100ms to client
-    console.log(n);
+            //Emit the percentage to clients every 100ms
+            currentPercentage = currentPercentage + crashSpeed; // Add 0.01% every 100ms
+            var n = currentPercentage.toFixed(2); // Change the number to two decimals
 
-    if (n > 2) {
-      crashSpeed = crashSpeed + 0.1;
-    }
-    if (n > 5) {
-      crashSpeed = crashSpeed + 0.06;
-    }
-    if (n > 10) {
-      crashSpeed = crashSpeed + 0.1;
-    }
-    if (n > 20) {
-      crashSpeed = crashSpeed + 0.2;
-    }
+            io.emit('crashValue', n); // Emit the crash% every 100ms to client
 
-    if(n == crashData.crashPercentage || n > crashData.crashPercentage) { // Checks if the currentPercentage == crashData%.
+            if (n > 1.5) {
+              crashSpeed = 0.015;
+            }
+            if (n > 2) {
+              crashSpeed = 0.015;
+            }
+            if (n > 3) {
+              crashSpeed = 0.02;
+            }
+            if (n > 4) {
+              crashSpeed = 0.025;
+            }
+            if (n > 5) {
+              crashSpeed = 0.03;
+            }
+            if (n > 7) {
+              crashSpeed = 0.04;
+            }
+            if (n > 10) {
+              crashSpeed = 0.06;
+            }
+            if (n > 20) {
+              crashSpeed = 0.08;
+            }
 
-      CrashActive = false; // Set to false
-      io.emit('crashed', crashData); // Emit to clients we crashed
-      console.log("Crashed at " + n);
-      clearInterval(crashtimer); // clear the interval
-      n = 1;
-      currentPercentage = 1;
-    }
+            if(n == crashData.crashPercentage || n > crashData.crashPercentage) { // Checks if the currentPercentage == crashData%.
 
-  },100);
-}
+              CrashActive = false; // Set to false
+              io.emit('crashed', crashData); // Emit to clients we crashed
+              console.log("Crashed at " + n);
+              clearInterval(crashtimer); // clear the interval
+              n = 1;
+              currentPercentage = 1;
+            }
 
-function crashSpeed() {
+          },100);
+       }, 10000);
 
-  if (n > 1.1) {
-    crashSpeed = 110;
-  }
-  if (n > 1.2) {
-    crashSpeed = 120;
-  }
-  if (n > 1.3) {
-    crashSpeed = 130;
-  }
-  if (n > 1.4) {
-    crashSpeed = 140;
-  }
-  if (n > 1.1) {
-    crashSpeed = 110;
-  }
-  if (n > 1.2) {
-    crashSpeed = 120;
-  }
-  if (n > 1.3) {
-    crashSpeed = 130;
-  }
-  if (n > 1.4) {
-    crashSpeed = 140;
-  }
 }
 
 app.use(express.static(path.join(__dirname, 'public')));
