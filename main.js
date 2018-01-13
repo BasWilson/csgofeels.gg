@@ -15,7 +15,7 @@ var hash;
 var playercount = 0;
 var CrashActive = false;
 var currentPercentage = 1;
-var crashSpeed = 0.01;
+var crashSpeed = 0.005;
 
 function startCrash() {
   hash = sha256.create();
@@ -76,13 +76,14 @@ function calculateCrash(f1, f2, f3, f4, crashFloat, finalCrash) {
   console.log('Final Crash Float: '+finalCrash);
 
   finalCrash = finalCrash + 1;
+  console.log('Final Crash Float: '+finalCrash);
   var n = finalCrash.toFixed(2);
 
   crashData = {
     crashPercentage: n,
     crashHash: hash
   };
-  io.emit('crashStart', crashData); //Start the actual crash
+  io.emit('crashStart'); //Start the actual crash
 }
 
 function startCrashIntermission() {
@@ -98,17 +99,35 @@ function startCrashIntermission() {
 
             io.emit('crashValue', n); // Emit the crash% every 100ms to client
 
+            if (n > 1.2) {
+              crashSpeed = 0.011;
+            }
+            if (n > 1.3) {
+              crashSpeed = 0.012;
+            }
+            if (n > 1.4) {
+              crashSpeed = 0.013;
+            }
             if (n > 1.5) {
-              crashSpeed = 0.015;
+              crashSpeed = 0.014;
             }
             if (n > 2) {
               crashSpeed = 0.015;
             }
+            if (n > 2.5) {
+              crashSpeed = 0.0165;
+            }
             if (n > 3) {
+              crashSpeed = 0.018;
+            }
+            if (n > 3.5) {
               crashSpeed = 0.02;
             }
             if (n > 4) {
-              crashSpeed = 0.025;
+              crashSpeed = 0.023;
+            }
+            if (n > 4.5) {
+              crashSpeed = 0.026;
             }
             if (n > 5) {
               crashSpeed = 0.03;

@@ -1,79 +1,227 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300');
 
-
-body {
-  margin: 0px;
+.bodyWrapper {
+  display:none;
 }
 
-.textBig {
-  font-family: Montserrat;
-  line-height: 40px;
+*{
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html, body {
+  background: black;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+canvas {
+  margin: 50px auto;
+  background-color: rgba(0,0,0,0);
+  display: block;
 }
 
-.crashText {
-  color: red;
+@font-face {
+    font-family: caviardreams;
+    src: url(CaviarDreams.ttf);
+}
+
+@font-face {
+    font-family: caviardreamsB;
+    src: url(CaviarDreams_Bold.ttf);
+}
+#nokey{
+    background-color: #000;
+    z-index: 1;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    padding: 8px;
+    font-family: caviardreamsb;
+    color: rgb(238, 0, 255);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+nav {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+}
+.activeNav {
+  background-color: rgb(238, 0, 255);
+  border-radius: 5px;
+  color: black;
+}
+.text {
+  font-family: caviardreams;
+  text-align: center;
+  color: white;
+  cursor: default;
+  margin: 10px 0px 10px 0px
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+.header {
   font-size: 30px;
+  font-family: caviardreamsB;
+}
+.crashText {
+  color: rgb(238, 0, 255);
+  font-size: 45px;
 }
 
 progress[value]::-webkit-progress-value {
-    background-color: rgb(165, 255, 195);
+    background-color: rgb(238, 0, 255);
+}
+
+progress::-webkit-progress-bar {background-color: #000; }
+
+.chart {
+  width: 70%;
+  height: 70%;
+  margin: 15px auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.myChart {
+  border-color: rgb(238, 0, 255);
+  border-width: 3px;
+  border-radius: 5px;
+  border-style: solid;
+  margin: 0px;
+  background-color: rgba(255,255,255,0.05);
 }
 
 .progressbar {
 
-  background-color: rgb(165, 255, 195);
-  width: 100%;
-  margin: 10px 0px 10px 0px;
+  background-color: rgb(17, 17, 17);
+  color:  rgb(17, 17, 17);
+  width: 200px;
+  height: 10px;
+  margin: 20px 20px 20px 20px;
   text-align: right;
 }
 .button {
-  width: auto;
-  height: auto;
-  font-family: Montserrat;
-  font-size: 16px;
-  background-color: rgb(165, 255, 195);
-  padding: 10px;
-  border-radius: 4px;
+  width: 125px;
+  height: 40px;
+  margin: 20px 20px 20px 20px;
+  color: rgba(238, 0, 255, 1);
+  border-radius: 5px;
+  background-color: rgb(17, 17, 17);
+  border-color: white;
+  padding: 10px 20px 10px 20px;
+  font-family: caviardreamsb;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
   transition: all 0.3s ease;
-  margin: 10px;
+  outline: none;
   text-align: center;
-  color: black;
 }
 
 .button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  cursor: pointer;
+  background-color: rgba(238, 0, 255, 1);
+  color: rgba(17,17,17,1);
+
 }
 
 .textfield {
-  width: 10%;
-  height: auto;
-  font-family: Montserrat;
-  font-size: 16px;
-  background-color: rgb(165, 255, 195);
-  padding: 10px;
+  margin: 20px 20px 20px 20px;
+  color: rgba(238, 0, 255, 1);
+  border-radius: 5px;
+  background-color: rgb(17, 17, 17);
   border: none;
-  outline: none;
+  padding: 10px 20px 10px 20px;
+  font-family: caviardreamsb;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
   transition: all 0.3s ease;
-  margin: 10px;
-  color: black;
+  outline: none;
+  width: 125px;
+  height: 40px;
   text-align: center;
+}
+.textfield::selection {
+  background-color: rgba(238, 0, 255, 1)
+
 }
 
 .headerContainer {
   width: 100%;
-  height: 60px;
-  margin-top: 10px;
+  height: auto;
+  padding: 10px;
   margin-bottom: 10px;
   display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
 }
 
-.crashContainer {
+.centerContainer {
+  width: 60%;
+  display: inline-flex;
+  flex-direction: row;
+  position: fixed;
+  left: 20%;
+  top: 130px;
+  height: auto;
   display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+.rightContainer {
+  width: 20%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  position: fixed;
+  top: 130px;
+  right: 0px;
+  padding: 10px;
+}
+.leftContainer {
+  width: 20%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: left;
+  position: fixed;
+  top: 130px;
+  left: 0px;
+  padding: 10px;
+}
+#container {
+  margin: 20px;
+  width: 200px;
+  height: 200px;
 }

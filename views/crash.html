@@ -9,27 +9,52 @@
     <title>Crash</title>
   </head>
   <body>
-
+    <div class="bodyWrapper">
     <div class="headerContainer">
-      <a class="textBig">Crash</a>
-      <a id="playerCount" class="textBig headerTextRight"></a>
+      <a class="text header">CSGOfeels<span style="color: rgb(238, 0, 255);">.</span>GG</a>
+            <a id="playerCount" class="text"></a>
+            <nav>
+              <ul>
+                <li><a class="activeNav" href="#crash">Crash</a></li>
+                <li><a href="#roulette">Roulette</a></li>
+                <li><a href="#dice">Dice</a></li>
+                <li><a href="#fairness">Provably Fair</a></li>
+              </ul>
+            </nav>
     </div>
-    <progress class="progressbar" value="1000" max="1000" id="progressBar"></progress>
 
-<div class="crashContainer">
-    <input id="betTextField" class="textfield" value="0.0" placeholder="Bet" ></input>
-    <a id="searchBTN" class="button">Place Bet</a>
-    <a id="output" class="textBig"></a>
-    <a id="output2" class="textBig crashText"></a>
-    <a id="roundhash" class="textBig"></a>
-</div>
+    <div class="centerContainer">
+      <div class="chart">
+        <canvas class="myChart" id="myChart"></canvas>
+      </div>
+      <progress class="progressbar" value="1000" max="1000" id="progressBar"></progress>
+      <a id="output2" class="text crashText">x0.0</a>
+    </div>
 
+    <div class="rightContainer">
+      <input id="betTextField" class="textfield" value="0.0" placeholder="Bet" ></input><br>
+      <a id="searchBTN" class="button">Place Bet</a><br>
+    </div>
+
+    <div class="leftContainer">
+
+    </div>
+
+    <canvas id="nokey" width="800" height="800">Your Browser doesn't Support Canvas, Please Download Chrome ^_^``</canvas>
+    <div class="container">
+      <img id="footerlogo"src="css/favicon.png" alt="Image cant load, oops"></img>
+
+
+    </div>
+  </div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <script src="/clientside/jquery-3.2.1.min.js"></script>
-    <script src="/clientside/timer.js"></script>
+    <script src="/clientside/Chart.js"> </script>
     <script src="/clientside/clicks.js"></script>
     <script src="/clientside/crash.js"></script>
+    <script src="/clientside/effect.js"> </script>
+    <script src="/clientside/progress.js"> </script>
 
   </body>
 
