@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="shortcut icon" href="/css/favicon.png" />
-    <title>Crash</title>
+    <title>Dice</title>
   </head>
   <body>
     <div class="bodyWrapper">
@@ -16,30 +16,40 @@
             <a id="playerCount" class="text"></a>
             <nav>
               <ul>
-                <li><a class="activeNav" href="/crash">CRASH</a></li>
+                <li ><a href="/crash">CRASH</a></li>
                 <li><a href="/roulette">ROULETTE</a></li>
-                <li><a href="/dice">DICE</a></li>
+                <li><a class="activeNav" href="/dice">DICE</a></li>
                 <li><a href="/fairness">PROVABLY FAIR</a></li>
               </ul>
             </nav>
     </div>
 
     <div class="centerContainer">
-      <div class="chart">
-        <canvas class="myChart" id="myChart"></canvas>
+      <a class="text textSmall diceShit">BET AMOUNT</a>
+      <input id="betAmountField" class="textfield diceShit" value="1.0" placeholder="Bet" ></input>
+      <a class="text textSmall diceShit">PROFIT ON WIN</a>
+      <a id="profitOnWin" class="text diceShit">0.00</a>
+      <a id="overundertext" class="text textSmall diceShit"></a>
+      <label class="switch diceShit">
+        <input id="overunder" type="checkbox">
+        <span class="slider"></span>
+      </label>
+      <input id="percentageField" class="textfield diceShit" placeholder="%" ></input>
+      <a class="text textSmall diceShit">MULTIPLIER</a>
+      <input id="multiplierField" class="textfield diceShit" placeholder="Multiplier" ></input>
+      <a class="text textSmall diceShit">WIN CHANCE</a>
+      <input id="winchanceField" class="textfield diceShit" placeholder="Chance" ></input><br>
+      <div class="slidecontainer">
+        <input type="range" min="1" max="99" value="50" class="sliderD diceShit" id="sliderDice">
       </div>
-      <progress class="progressbar" value="1000" max="1000" id="progressBar"></progress>
-      <a id="output2" class="text crashText">x0.0</a>
-      <input id="betTextField" class="textfield" value="0.0" placeholder="Bet" ></input><br>
-      <a id="searchBTN" class="button">Place Bet</a><br>
+      <a id="output" class="text crashText diceShit"></a>
+      <a id="rollBTN" class="button diceBtn diceShit">Roll</a><br>
     </div>
 
     <div class="rightContainer">
-
     </div>
 
     <div class="leftContainer">
-
     </div>
 
     <canvas id="nokey" width="800" height="800">Your Browser doesn't Support Canvas, Please Download Chrome ^_^``</canvas>
@@ -54,7 +64,7 @@
     <script src="/clientside/jquery-3.2.1.min.js"></script>
     <script src="/clientside/Chart.js"> </script>
     <script src="/clientside/clicks.js"></script>
-    <script src="/clientside/crash.js"></script>
+    <script src="/clientside/dice.js"></script>
     <script src="/clientside/effect.js"> </script>
     <script src="/clientside/progress.js"> </script>
 

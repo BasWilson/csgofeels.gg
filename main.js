@@ -157,10 +157,27 @@ function startCrashIntermission() {
 
 }
 
+
+/////////
+//Dice
+/////////
+
+
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res){
 res.sendFile(__dirname + '/views/crash.html');
+});
+app.get('/dice', function(req, res){
+res.sendFile(__dirname + '/views/dice.html');
+});
+app.get('/crash', function(req, res){
+res.sendFile(__dirname + '/views/crash.html');
+});
+app.get('/roulette', function(req, res){
+res.sendFile(__dirname + '/views/roulette.html');
 });
 
 io.on('connection', function(socket){
@@ -175,8 +192,10 @@ io.on('connection', function(socket){
 
   });
 
-
-  socket.on('bet', function(betAmount){
+  ///////////////
+  ///CRASH
+  ///////////////
+  socket.on('crashBet', function(betAmount){
     console.log(betAmount+ " Bet");
     if (betAmount < 0.1) {
       socket.emit('invalidBet', betAmount);
@@ -188,6 +207,51 @@ io.on('connection', function(socket){
 
   socket.on('getOut', function () {
     socket.emit('gotOut');
+  });
+
+  ///////////////
+  ///DICE
+  ///////////////
+  socket.on('diceData', function (diceData) {
+    verifyDice(diceData);
+    function verifyDice (diceData, d1, d2, d3, d4, dicePercentage) {
+      if (diceData.betAmount <= 0.0) {
+        socket.emit('invalidDiceBet');
+      } else {
+        //Check if dice was correctly calculated
+        diceData.multiplier = diceData.percentage * 0.04;
+        diceData.multiplier = diceData.multiplier.toFixed(2);
+        if (diceData.multiplier == diceData.profitOnWin) {
+          console.log(diceData.winChance);
+
+          //calcualte
+          d1 = randomFloat(1, 100);
+          d2 = randomFloat(1, 100);
+          d3 = randomFloat(1, 100);
+          d4 = randomFloat(1, 100);
+          dicePercentage = d1+d2+d3+d4;
+          dicePercentage = dicePercentage / 4;
+
+          dicePercentage = dicePercentage.toFixed(2);
+          console.log('Calculated dice percentage: '+dicePercentage);
+
+          if (diceData.over == true) {
+            if (dicePercentage > diceData.percentage) {
+              socket.emit('wonDice', dicePercentage);
+            } else if (dicePercentage < diceData.percentage) {
+              socket.emit('lostDice', dicePercentage);
+            }
+          } else {
+            if (dicePercentage < diceData.winChance) {
+              socket.emit('wonDice', dicePercentage);
+            } else if (dicePercentage > diceData.winChance) {
+              socket.emit('lostDice', dicePercentage);
+            }
+          }
+
+        }
+      }
+    };
   })
 
 

@@ -111,7 +111,7 @@ function setChartValue(n) {
 }
 function placeBet(betAmount) { //Send your bet to the server
   betAmount = document.getElementById('betTextField').value;
-  socket.emit('bet', betAmount);
+  socket.emit('crashBet', betAmount);
 }
 
 function setCrashValue(n) {
