@@ -191,6 +191,10 @@ io.on('connection', function(socket){
     io.emit('playerCount', playercount);
 
   });
+  //Chat
+  socket.on('message', function(messageData){
+    io.emit('message', messageData); // we send data back to all clients
+  })
 
   ///////////////
   ///CRASH
