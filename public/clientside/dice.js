@@ -1,5 +1,10 @@
 var socket = io();
 var activeGame = false;
+var user;
+
+setTimeout(function () {
+  user = firebase.auth().currentUser;
+}, 500);
 
 var dice = {
   percentage: 0,
@@ -7,7 +12,9 @@ var dice = {
   winChance: 0,
   profitOnWin: 0,
   betAmount: 0,
-  over: true
+  over: true,
+  userID: 0,
+  gameID: 0
 };
 
 
@@ -48,6 +55,8 @@ setInterval(function(){
 }, 20);
 
 $("#rollBTN").click(function() {
+  dice.userID = user.uid;
+  //dice.time = user.time;
   socket.emit('diceData', dice);
 });
 

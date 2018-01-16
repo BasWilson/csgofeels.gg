@@ -4,6 +4,7 @@
   "description": "Matchmaking system for AltMM",
   "dependencies": {
     "express": "^4.15.2",
+    "firebase-admin": "^5.8.0",
     "js-sha256": "^0.9.0",
     "random-float": "^1.0.0",
     "socket.io": "^2.0.3"

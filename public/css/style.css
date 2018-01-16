@@ -391,3 +391,38 @@ input:checked + .slider:before {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+.google-button {
+  position: relative;
+  padding: 15px;
+  background-color: white;
+  border-radius: 5px;
+  color: rgba(0,0,0,0.75);
+  font-family: caviardreamsB;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  margin-bottom: 15px;
+  position: fixed;
+  right: 10px;
+  top: 5%;
+}
+
+.google-button:hover {
+  transform: translateY(-5px);
+}
+
+.google-button:active {
+  transform: translateY(0px);
+  opacity: 0.75;
+}
+
+.google-image {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  background-image: url("google.png");
+  background-size: cover;
+}
