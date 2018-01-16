@@ -197,6 +197,55 @@ function writeGameToDB(diceData) {
   });
 }
 
+function removeBalance(diceData) {
+
+  var balanceRef = admin.database().ref('users/' + diceData.userID + '/properties/');
+
+  balanceRef.transaction(function(balance) {
+    if (balance) {
+      if (balance.balance && balance.balance[diceData.userID]) {
+        //If anything in the transaction went wrong or the user tried to mess with it, it will be restored.
+        var newBalance = parseFloat(balance.balance) + parseFloat(diceData.betAmount);
+        balance.balance = parseFloat(newBalance).toFixed(2);
+        balance.balance[diceData.userID] = null;
+      } else {
+        //takes the betAmount var from the user if he loses
+        var newBalance = parseFloat(balance.balance) - parseFloat(diceData.betAmount);
+        balance.balance = parseFloat(newBalance).toFixed(2);
+        if (!balance.balance) {
+          balance.balance = {};
+        }
+        balance.balance[diceData.userID] = true;
+      }
+    }
+    return balance;
+  });
+}
+
+function addBalance(diceData) {
+  var balanceRef = admin.database().ref('users/' + diceData.userID + '/properties/');
+
+  balanceRef.transaction(function(balance) {
+    if (balance) {
+      if (balance.balance && balance.balance[diceData.userID]) {
+        //If anything in the transaction went wrong or the user tried to mess with it, it will be restored.
+        var newBalance = parseFloat(balance.balance) - parseFloat(diceData.betAmount);
+        balance.balance = parseFloat(newBalance).toFixed(2);
+        balance.balance[diceData.userID] = null;
+      } else {
+        //Pays the profitOnWin var from the user out if he/she wins
+        var newBalance = parseFloat(balance.balance) + parseFloat(diceData.profitOnWin) - parseFloat(diceData.betAmount);
+        balance.balance = parseFloat(newBalance).toFixed(2);
+        if (!balance.balance) {
+          balance.balance = {};
+        }
+        balance.balance[diceData.userID] = true;
+      }
+    }
+    return balance;
+  });
+}
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -255,13 +304,8 @@ io.on('connection', function(socket){
       if (diceData.betAmount <= 0.0) {
         socket.emit('invalidDiceBet');
       } else {
-        //Check if dice was correctly calculated
-        diceData.multiplier = diceData.percentage * 0.04;
-        diceData.multiplier = diceData.multiplier.toFixed(2);
-        if (diceData.multiplier == diceData.profitOnWin) {
-          console.log(diceData.winChance);
 
-          //calcualte
+          //calcualte dice number
           d1 = randomFloat(1, 100);
           d2 = randomFloat(1, 100);
           d3 = randomFloat(1, 100);
@@ -274,31 +318,31 @@ io.on('connection', function(socket){
           dicePercentage = dicePercentage.toFixed(2);
           console.log('Calculated dice percentage: '+dicePercentage);
 
+          //Payout dice and do other database stuff
           if (diceData.over == true) {
             if (dicePercentage > diceData.percentage) {
               socket.emit('wonDice', dicePercentage);
               writeGameToDB(diceData);
+              addBalance(diceData);
             } else if (dicePercentage < diceData.percentage) {
               socket.emit('lostDice', dicePercentage);
               writeGameToDB(diceData);
+              removeBalance(diceData);
             }
           } else {
             if (dicePercentage < diceData.winChance) {
               socket.emit('wonDice', dicePercentage);
-              console.log(diceData);
               writeGameToDB(diceData);
+              addBalance(diceData);
             } else if (dicePercentage > diceData.winChance) {
               socket.emit('lostDice', dicePercentage);
               writeGameToDB(diceData);
+              removeBalance(diceData);
             }
-
           }
-        }
       }
     };
   })
-
-
 });
 
 http.listen(3000, function(){

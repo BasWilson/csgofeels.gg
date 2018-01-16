@@ -8,24 +8,36 @@ var data;
 
 function sendMessage() {
 
-    name = name;
-    message = document.getElementById('messageField').value;
+      firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        var usernameCookie = Cookies.get('username');
 
-    if (message == "") {
-      //ignore input
-    } else {
-      data = {
-        message: message
+        message = document.getElementById('messageField').value;
+
+        if (message == "") {
+          //ignore input
+        } else {
+          data = {
+            message: message,
+            username: usernameCookie
+          }
+          socket.emit('message', data)
+
+          document.getElementById('messageField').value = "";
+          scrollDown();
+        }
+      } else {
+        // No user is signed in.
+        message = '<a id="message" class="chatText">'+"Server: "+ "You have to sign in!"+'</a><br>';
+        $("#message").append(message);
       }
-      socket.emit('message', data)
+    });
 
-      document.getElementById('messageField').value = "";
-      scrollDown();
-    }
 }
 
 socket.on('message', function (data) {
-message = '<a id="message" class="chatText">'+"USERNAME: " + data.message+'</a><br>';
+message = '<a id="message" class="chatText">'+data.username+": "+ data.message+'</a><br>';
 $("#message").append(message);
 scrollDown();
 });
@@ -37,4 +49,8 @@ $(document).keypress(function(e) {
   if(e.which == 13) {
     sendMessage();
   }
+});
+
+socket.on('balance', function (balance) {
+  document.getElementById('balance').innerHTML = balance + " COINS";
 });

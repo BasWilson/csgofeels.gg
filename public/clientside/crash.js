@@ -11,7 +11,7 @@ function startCrash() {
   $("#searchBTN").text("Get out");
   $("#output").text("Bets are locked in");
   $("#betTextField").attr("background-color", "grey");
-  document.getElementById("output2").style.color = "rgb(238, 0, 255)";
+  document.getElementById("output2").style.color = "rgb(244, 75, 66)";
   $("#betTextField").attr("disabled", "disabled");
   activeGame = true
   setChart();
@@ -50,7 +50,7 @@ function setChart(n) {
   var ctx = canvas.getContext('2d');
 
   // Global Options:
-  Chart.defaults.global.defaultFontColor = 'rgb(238, 0, 255)';
+  Chart.defaults.global.defaultFontColor = 'rgb(244, 75, 66)';
   Chart.defaults.global.defaultFontSize = 16;
 
   var data = {
@@ -59,8 +59,8 @@ function setChart(n) {
         label: "Crash",
         fill: true,
         lineTension: 0.1,
-        backgroundColor: "rgba(238, 0, 255, 0.2)",
-        borderColor: "rgb(238, 0, 255)",
+        backgroundColor: "rgba(244, 75, 66, 0.2)",
+        borderColor: "rgb(244, 75, 66);",
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
@@ -69,8 +69,8 @@ function setChart(n) {
         pointBackgroundColor: "black",
         pointBorderWidth: 0,
         pointHoverRadius: 0,
-        pointHoverBackgroundColor: "rgb(238, 0, 255)",
-        pointHoverBorderColor: "rgb(238, 0, 255)",
+        pointHoverBackgroundColor: "rgb(244, 75, 66)",
+        pointHoverBorderColor: "rgb(244, 75, 66)",
         pointHoverBorderWidth: 2,
         pointRadius: 0,
         pointHitRadius: 0,

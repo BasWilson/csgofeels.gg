@@ -47,27 +47,20 @@ setInterval(function(){
     document.getElementById('winchanceField').value = dice.percentage + "%";
   } else {
     dice.over = true;
-    document.getElementById("overundertext").style.color = "rgb(238, 0, 255)" ;
+    document.getElementById("overundertext").style.color = "rgb(244, 75, 66)" ;
     $("#overundertext").text("ROLLING OVER");
     document.getElementById('winchanceField').value = 100 - dice.percentage + "%";
   }
 
 }, 20);
 
+
 $("#rollBTN").click(function() {
   dice.userID = user.uid;
-  //dice.time = user.time;
   socket.emit('diceData', dice);
 });
 
-socket.on('wonDice', function (dicePercentage) {
-  $("#output").text("ROLLED "+ dicePercentage + ", you won!");
-  document.getElementById("output").style.color = "rgb(238, 0, 255)" ;
-})
-socket.on('lostDice', function (dicePercentage) {
-  $("#output").text("ROLLED "+ dicePercentage + ", you lost!");
-  document.getElementById("output").style.color = "red" ;
-})
+
 
 socket.on('playerCount', function (playercount) { // Show the online player count
   $("#playerCount").text("Online Players: " + playercount);

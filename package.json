@@ -1,7 +1,7 @@
 {
-  "name": "Alt MatchMaking",
+  "name": "CSGO Gambling",
   "version": "0.0.1",
-  "description": "Matchmaking system for AltMM",
+  "description": "Gambling site",
   "dependencies": {
     "express": "^4.15.2",
     "firebase-admin": "^5.8.0",

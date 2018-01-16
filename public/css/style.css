@@ -52,7 +52,7 @@ nav li a {
     display: block;
     padding: 8px;
     font-family: caviardreamsb;
-    color: rgb(238, 0, 255);
+    color: rgb(244, 75, 66);
     text-decoration: none;
     cursor: pointer;
 }
@@ -65,10 +65,15 @@ nav {
 #playerCount {
   position: fixed;
   right: 10px;
-  top: 20px;
+  top: auto;
+}
+#balance {
+  position: fixed;
+  right: 10px;
+  top: 30px;
 }
 .activeNav {
-  background-color: rgb(238, 0, 255);
+  background-color: rgb(244, 75, 66);
   border-radius: 5px;
   color: black;
 }
@@ -91,16 +96,16 @@ nav {
 }
 s
 .header {
-  font-size: 30px;
+  font-size: 40px;
   font-family: caviardreamsB;
 }
 .crashText {
-  color: rgb(238, 0, 255);
+  color: rgb(244, 75, 66);
   font-size: 45px;
 }
 
 progress[value]::-webkit-progress-value {
-    background-color: rgb(238, 0, 255);
+    background-color: rgb(244, 75, 66);
 }
 
 progress::-webkit-progress-bar {background-color: #000; }
@@ -116,7 +121,7 @@ progress::-webkit-progress-bar {background-color: #000; }
 }
 
 .myChart {
-  border-color: rgb(238, 0, 255);
+  border-color: rgb(244, 75, 66);
   border-width: 3px;
   border-radius: 5px;
   border-style: solid;
@@ -137,7 +142,7 @@ progress::-webkit-progress-bar {background-color: #000; }
   width: 125px;
   height: 40px;
   margin: 20px 20px 20px 20px;
-  color: rgba(238, 0, 255, 1);
+  color: rgb(244, 75, 66);
   border-radius: 5px;
   background-color: rgb(17, 17, 17);
   border-color: white;
@@ -157,14 +162,14 @@ progress::-webkit-progress-bar {background-color: #000; }
   width: 50%;
 }
 .button:hover {
-  background-color: rgba(238, 0, 255, 1);
+  background-color: rgb(244, 75, 66);
   color: rgba(17,17,17,1);
 
 }
 
 .textfield {
   margin: 20px 20px 20px 20px;
-  color: rgba(238, 0, 255, 1);
+  color: rgb(244, 75, 66);
   border-radius: 5px;
   background-color: rgb(17, 17, 17);
   border: none;
@@ -181,7 +186,7 @@ progress::-webkit-progress-bar {background-color: #000; }
   text-align: center;
 }
 .textfield::selection {
-  background-color: rgba(238, 0, 255, 1)
+  background-color: rgb(244, 75, 66);
 
 }
 
@@ -198,12 +203,13 @@ progress::-webkit-progress-bar {background-color: #000; }
 }
 
 .centerContainer {
+  padding: 5% 0% 0% 0%;
   width: 50%;
   display: inline-flex;
   flex-direction: row;
   position: fixed;
   left: 25%;
-  top: 5%;
+  top: auto;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -219,7 +225,7 @@ progress::-webkit-progress-bar {background-color: #000; }
   align-items: flex-end;
   text-align: right;
   position: fixed;
-  top: 5%;
+  top: auto;
   right: 0px;
   padding: 10px;
 }
@@ -227,7 +233,7 @@ progress::-webkit-progress-bar {background-color: #000; }
   width: 25%;
   height: 100%;
   position: fixed;
-  top: 5%;
+  top: auto;
   left: 0px;
   padding: 10px;
   background-color: rgba(17, 17, 17, 0.3);
@@ -272,7 +278,7 @@ progress::-webkit-progress-bar {background-color: #000; }
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background-color: rgb(238, 0, 255);
+    background-color: rgb(244, 75, 66);
     cursor: pointer;
 }
 
@@ -280,7 +286,7 @@ progress::-webkit-progress-bar {background-color: #000; }
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background-color: rgb(238, 0, 255);
+    background-color: rgb(244, 75, 66);
     cursor: pointer;
 }
 
@@ -313,13 +319,13 @@ progress::-webkit-progress-bar {background-color: #000; }
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: rgb(238, 0, 255);
+  background-color: rgb(244, 75, 66);
   -webkit-transition: .4s;
   transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: rgb(238, 0, 255);
+  background-color: rgb(244, 75, 66);
 }
 
 input:focus + .slider {
@@ -338,11 +344,12 @@ input:checked + .slider:before {
   width: 100%;
   height: 50%;
   overflow-y: scroll;
+  overflow-x: hidden;
   z-index: 1;
 }
 
 .messagetextfield {
-  color: rgba(238, 0, 255, 1);
+  color: rgb(244, 75, 66);
   border-radius: 5px;
   background-color: black;
   padding: 10px;
@@ -358,7 +365,7 @@ input:checked + .slider:before {
   text-align: left;
 }
 .messagetextfield::selection {
-  background-color: rgba(238, 0, 255, 1)
+  background-color: rgb(244, 75, 66);
 
 }
 
@@ -384,7 +391,7 @@ input:checked + .slider:before {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(238,0,255);
+  background: rgb(244, 75, 66);
 }
 
 /* Handle on hover */

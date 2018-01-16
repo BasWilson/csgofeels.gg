@@ -11,9 +11,10 @@
   <body>
     <div class="bodyWrapper">
     <div class="headerContainer">
-      <a class="text header">CSGOfeels<span style="color: rgb(238, 0, 255);">.</span>GG</a>
+      <a class="text header">CSGORUSH<span style="color: rgb(244, 75, 66);">.</span>GG</a>
 
             <a id="playerCount" class="text"></a>
+            <a id="balance" class="text">0.00<span style="color: rgb(244, 75, 66);"> COINS</span></a>
             <nav>
               <ul>
                 <li ><a href="/crash">CRASH</a></li>
@@ -55,18 +56,12 @@
     </div>
 
     <div class="leftContainer">
+      <a class="text">Chat</a>
       <div id="message" class="chatContainer">
-
       </div>
-        <input type="text" id="messageField" class="messagetextfield" placeholder="Message..."></input>
+      <input type="text" id="messageField" class="messagetextfield" placeholder="What's on your mind?"></input>
     </div>
 
-    <canvas id="nokey" width="800" height="800">Your Browser doesn't Support Canvas, Please Download Chrome ^_^``</canvas>
-    <div class="container">
-      <img id="footerlogo"src="css/favicon.png" alt="Image cant load, oops"></img>
-
-
-    </div>
   </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
@@ -77,10 +72,9 @@
     <script src="/clientside/Chart.js"> </script>
     <script src="/clientside/clicks.js"></script>
     <script src="/clientside/dice.js"></script>
-    <script src="/clientside/effect.js"> </script>
     <script src="/clientside/progress.js"> </script>
     <script src="/clientside/chat.js"> </script>
-
+    <script src="/clientside/user.js"> </script>
   </body>
 
 </html>

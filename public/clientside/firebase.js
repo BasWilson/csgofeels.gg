@@ -46,6 +46,7 @@ function checkIfSignedIn() {
     if (user) {
       // User is signed in.
       $( ".google-button" ).remove();
+      getBalance(balance);
     } else {
       // No user is signed in.
     }
@@ -66,3 +67,13 @@ function signout() {
 $("#GoogleLogin").click(function() {
   loginWithGoogle()
 });
+
+//Get balance
+function getBalance(balance, userId) {
+  var user = firebase.auth().currentUser;
+  userId = user.uid;
+  firebase.database().ref('/users/' + userId + '/properties/').once('value').then(function(snapshot) {
+    balance = (snapshot.val() && snapshot.val().balance);
+    $('#balance').text(balance+" COINS");
+  });
+}
