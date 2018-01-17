@@ -30,37 +30,68 @@
             </div>
     </div>
 
-    <div class="centerContainer">
-      <a class="text textSmall diceShit">BET AMOUNT</a>
-      <input id="betAmountField" class="textfield diceShit" value="1.0" placeholder="Bet" ></input>
-      <a class="text textSmall diceShit">PROFIT ON WIN</a>
-      <a id="profitOnWin" class="text diceShit">0.00</a>
-      <a id="overundertext" class="text textSmall diceShit"></a>
-      <label class="switch diceShit">
-        <input id="overunder" type="checkbox">
-        <span class="slider"></span>
-      </label>
-      <input id="percentageField" class="textfield diceShit" placeholder="%" ></input>
-      <a class="text textSmall diceShit">MULTIPLIER</a>
-      <input id="multiplierField" class="textfield diceShit" placeholder="Multiplier" ></input>
-      <a class="text textSmall diceShit">WIN CHANCE</a>
-      <input id="winchanceField" class="textfield diceShit" placeholder="Chance" ></input><br>
-      <div class="slidecontainer">
-        <input type="range" min="1" max="94" value="47" class="sliderD diceShit" id="sliderDice">
+    <div class="page">
+      <div class="leftContainer">
+        <a class="text">CHAT</a>
+        <div id="message" class="chatContainer">
+        </div>
+        <input type="text" id="messageField" class="messagetextfield" placeholder="What's on your mind?"></input>
       </div>
-      <a id="rollBTN" class="button diceBtn diceShit">Roll</a><br>
-      <a id="output" class="text crashText diceShit"></a>
+
+      <div class="mainHolder">
+
+
+        <div class="centerContainer">
+          <div class="toprow">
+            <div class="toprowholder">
+              <a class="text textSmall diceShit textalignleft">BET AMOUNT</a>
+              <input id="betAmountField" class="textfield diceShit" value="1.0" placeholder="Bet" ></input>
+            </div>
+            <div class="toprowholder">
+              <a class="text textSmall diceShit">PROFIT ON WIN</a>
+              <a id="profitOnWin" class="text diceShit">0.00</a>
+            </div>
+
+
+          </div>
+          <div class="middlerow">
+            <div class="toprowholder">
+              <a class="text textSmall diceShit hide">MULTIPLIER</a>
+              <div id="overswitch" class="switch switchButton diceShit">
+                <img class="refresh-icon" src="https://png.icons8.com/material/50/ffffff/refresh.png">
+              </div>
+            </div>
+            <div class="toprowholder">
+              <a id="overundertext" class="text textSmall diceShit"></a>
+              <input id="percentageField" class="textfield diceShit" placeholder="%" ></input>
+            </div>
+            <div class="toprowholder">
+              <a class="text textSmall diceShit">MULTIPLIER</a>
+              <input id="multiplierField" class="textfield diceShit" placeholder="Multiplier" ></input>
+            </div>
+            <div class="toprowholder">
+              <a class="text textSmall diceShit">WIN CHANCE</a>
+              <input id="winchanceField" class="textfield diceShit" placeholder="Chance" ></input><br>
+            </div>
+
+          </div>
+
+          <div class="bottomcontainer">
+            <div class="slidecontainer">
+              <input type="range" min="1" max="94" value="47" class="sliderD diceShit" id="sliderDice">
+            </div>
+            <a id="rollBTN" class="button diceShit" style="width: 100%;">ROLL</a>
+            <a id="output" class="text diceShit"></a>
+          </div>
+
+        </div>
+
+
+      </div>
     </div>
 
-    <div class="rightContainer">
-    </div>
 
-    <div class="leftContainer">
-      <a class="text">CHAT</a>
-      <div id="message" class="chatContainer">
-      </div>
-      <input type="text" id="messageField" class="messagetextfield" placeholder="What's on your mind?"></input>
-    </div>
+
 
 
 </div>

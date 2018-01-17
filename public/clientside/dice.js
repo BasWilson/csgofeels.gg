@@ -1,6 +1,7 @@
 var socket = io();
 var activeGame = false;
 var user;
+var over = true;
 
 setTimeout(function () {
   user = firebase.auth().currentUser;
@@ -53,10 +54,9 @@ setInterval(function(){
   document.getElementById('multiplierField').value = dice.multiplier;
   document.getElementById('profitOnWin').innerHTML = dice.profitOnWin;
 
-  var overunder = document.getElementById("overunder").checked;
   document.getElementById('percentageField').value = dice.percentage + "%";
 
-  if (overunder == true) {
+  if (over == false) {
     $("#overundertext").text("ROLLING UNDER");
     document.getElementById("overundertext").style.color = "white" ;
     dice.over = false;
@@ -77,6 +77,14 @@ $("#rollBTN").click(function() {
 });
 
 
+$("#overswitch").click(function() {
+  if (over == true) {
+    over = false;
+  } else {
+    over = true;
+  }
+  console.log(over);
+});
 
 socket.on('playerCount', function (playercount) { // Show the online player count
   $("#playerCount").text("Online Players: " + playercount);
