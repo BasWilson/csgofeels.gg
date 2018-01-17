@@ -17,7 +17,23 @@ var dice = {
   gameID: 0
 };
 
+function setBalance(win) {
 
+  if (win == true) {
+    var newBalance = parseFloat(Cookies.get('balance'));
+    var winAmount = parseFloat(dice.profitOnWin) - parseFloat(dice.betAmount);
+    newBalance = newBalance + winAmount;
+    newBalance = newBalance.toFixed(2);
+    $('#balance').text(newBalance+" COINS");
+    Cookies.set('balance', newBalance);
+  } else {
+    var newBalance = parseFloat(Cookies.get('balance'));
+    newBalance = newBalance - parseFloat(dice.betAmount);
+    newBalance = newBalance.toFixed(2);
+    $('#balance').text(newBalance+" COINS");
+    Cookies.set('balance', newBalance);
+  }
+}
 setInterval(function(){
   dice.percentage = document.getElementById("percentageField").value;
   dice.percentage = document.getElementById("sliderDice").value;

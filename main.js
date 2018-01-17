@@ -250,7 +250,7 @@ function addBalance(diceData) {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res){
-res.sendFile(__dirname + '/views/crash.html');
+res.sendFile(__dirname + '/views/dice.html');
 });
 app.get('/dice', function(req, res){
 res.sendFile(__dirname + '/views/dice.html');
@@ -299,49 +299,68 @@ io.on('connection', function(socket){
   ///DICE
   ///////////////
   socket.on('diceData', function (diceData) {
-    verifyDice(diceData);
-    function verifyDice (diceData, d1, d2, d3, d4, dicePercentage) {
-      if (diceData.betAmount <= 0.0) {
-        socket.emit('invalidDiceBet');
-      } else {
 
-          //calcualte dice number
-          d1 = randomFloat(1, 100);
-          d2 = randomFloat(1, 100);
-          d3 = randomFloat(1, 100);
-          d4 = randomFloat(1, 100);
-          dicePercentage = d1+d2+d3;
-          dicePercentage = dicePercentage / 3;
-          var gameID = dicePercentage * d2 * d4 * d3 * d1 * d2;
-          gameID = gameID.toFixed(0);
-          diceData.gameID = gameID;
-          dicePercentage = dicePercentage.toFixed(2);
-          console.log('Calculated dice percentage: '+dicePercentage);
-
-          //Payout dice and do other database stuff
-          if (diceData.over == true) {
-            if (dicePercentage > diceData.percentage) {
-              socket.emit('wonDice', dicePercentage);
-              writeGameToDB(diceData);
-              addBalance(diceData);
-            } else if (dicePercentage < diceData.percentage) {
-              socket.emit('lostDice', dicePercentage);
-              writeGameToDB(diceData);
-              removeBalance(diceData);
-            }
+    if (diceData.betAmount <= 0.0) {
+      socket.emit('invalidDiceBet');
+    } else {
+    getBalance(diceData);
+    function getBalance() {
+      //If enough balance start calculation
+        admin.database().ref('/users/' + diceData.userID + '/properties/').once('value').then(function(snapshot) {
+          var balance = (snapshot.val() && snapshot.val().balance);
+          balance = parseFloat(balance);
+          var bet = parseFloat(diceData.betAmount);
+          console.log(balance);
+          if (balance < bet) {
+            socket.emit('invalidBalance');
+            console.log(balance, diceData.betAmount);
+            return false;
+          } if (true) {
+            verifyDice(diceData)
           } else {
-            if (dicePercentage < diceData.winChance) {
-              socket.emit('wonDice', dicePercentage);
-              writeGameToDB(diceData);
-              addBalance(diceData);
-            } else if (dicePercentage > diceData.winChance) {
-              socket.emit('lostDice', dicePercentage);
-              writeGameToDB(diceData);
-              removeBalance(diceData);
-            }
+            //stop
           }
-      }
+          });
+    }
+    function verifyDice (diceData, d1, d2, d3, d4, dicePercentage) {
+
+              //calcualte dice number
+              d1 = randomFloat(1, 100);
+              d2 = randomFloat(1, 100);
+              d3 = randomFloat(1, 100);
+              d4 = randomFloat(1, 100);
+              dicePercentage = d1+d2+d3;
+              dicePercentage = dicePercentage / 3;
+              var gameID = dicePercentage * d2 * d4 * d3 * d1 * d2;
+              gameID = gameID.toFixed(0);
+              diceData.gameID = gameID;
+              dicePercentage = dicePercentage.toFixed(2);
+              console.log('Calculated dice percentage: '+dicePercentage);
+
+              //Payout dice and do other database stuff
+              if (diceData.over == true) {
+                if (dicePercentage > diceData.percentage) {
+                  socket.emit('wonDice', dicePercentage);
+                  writeGameToDB(diceData);
+                  addBalance(diceData);
+                } else if (dicePercentage < diceData.percentage) {
+                  socket.emit('lostDice', dicePercentage);
+                  writeGameToDB(diceData);
+                  removeBalance(diceData);
+                }
+              } else {
+                if (dicePercentage < diceData.winChance) {
+                  socket.emit('wonDice', dicePercentage);
+                  writeGameToDB(diceData);
+                  addBalance(diceData);
+                } else if (dicePercentage > diceData.winChance) {
+                  socket.emit('lostDice', dicePercentage);
+                  writeGameToDB(diceData);
+                  removeBalance(diceData);
+                }
+              }
     };
+  }
   })
 });
 

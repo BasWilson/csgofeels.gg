@@ -70,10 +70,15 @@ $("#GoogleLogin").click(function() {
 
 //Get balance
 function getBalance(balance, userId) {
+  var balanceCookie = Cookies.get('balance');
+  $('#balance').text(balanceCookie+" COINS");
+
   var user = firebase.auth().currentUser;
   userId = user.uid;
   firebase.database().ref('/users/' + userId + '/properties/').once('value').then(function(snapshot) {
     balance = (snapshot.val() && snapshot.val().balance);
     $('#balance').text(balance+" COINS");
+    Cookies.set('balance', balance);
+
   });
 }

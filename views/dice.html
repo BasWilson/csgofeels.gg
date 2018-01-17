@@ -11,10 +11,10 @@
   <body>
     <div class="bodyWrapper">
     <div class="headerContainer">
-      <a class="text header">CSGORUSH<span style="color: rgb(244, 75, 66);">.</span>GG</a>
+      <a class="text header">WILSON<span class="red-text-big">.</span>GG</a>
 
             <a id="playerCount" class="text"></a>
-            <a id="balance" class="text">0.00<span style="color: rgb(244, 75, 66);"> COINS</span></a>
+            <a id="balance" class="text">0.00 COINS></a>
             <nav>
               <ul>
                 <li ><a href="/crash">CRASH</a></li>
@@ -48,20 +48,38 @@
       <div class="slidecontainer">
         <input type="range" min="1" max="94" value="47" class="sliderD diceShit" id="sliderDice">
       </div>
-      <a id="output" class="text crashText diceShit"></a>
       <a id="rollBTN" class="button diceBtn diceShit">Roll</a><br>
+      <a id="output" class="text crashText diceShit"></a>
     </div>
 
     <div class="rightContainer">
     </div>
 
     <div class="leftContainer">
-      <a class="text">Chat</a>
+      <a class="text">CHAT</a>
       <div id="message" class="chatContainer">
       </div>
       <input type="text" id="messageField" class="messagetextfield" placeholder="What's on your mind?"></input>
     </div>
 
+
+</div>
+    <!--
+    Popup windows
+    !-->
+      <div class="popup dice-popup">
+        <div class="popup-item-container">
+
+        <a id="popup-text" class="text popup-item"></a>
+        <a id="close-popup-button" class="button red">CLOSE</a>
+        <input id="disable-popup"type="checkbox"name="popups" value="disabled" ><span class="text">Disable Pop-ups</span></input>
+      </div>
+    </div>
+    <div class="popup generic-popup">
+      <div class="popup-item-container">
+      <a id="generic-popup-text" class="text popup-item"></a>
+      <a id="generic-close-popup-button" class="button red">CLOSE</a>
+    </div>
   </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>

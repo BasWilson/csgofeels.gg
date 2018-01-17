@@ -110,6 +110,9 @@ progress[value]::-webkit-progress-value {
 
 progress::-webkit-progress-bar {background-color: #000; }
 
+.red-text-big {
+  color: rgb(244, 75, 66);
+}
 .chart {
   width: 70%;
   height: 70%;
@@ -237,6 +240,53 @@ progress::-webkit-progress-bar {background-color: #000; }
   left: 0px;
   padding: 10px;
   background-color: rgba(17, 17, 17, 0.3);
+
+}
+
+.popup {
+  width: 40%;
+  height: 25%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: rgba(17,17,17,0.9);
+  border-radius: 5px;
+  display: none;
+  border: solid 5px  rgb(244, 75, 66);
+}
+
+.popup-item-container {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+.popup-item {
+  margin: 20px;
+  font-family: caviardreamsB;
+}
+
+#dice-result {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.red {
+  background-color: rgb(244, 75, 66);
+  color: rgb(17,17,17);
+}
+.red:hover {
+  background-color: rgb(17, 17, 17);
+  color:  rgb(244, 75, 66);
 
 }
 .diceContainer {
