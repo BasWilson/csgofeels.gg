@@ -55,8 +55,13 @@ nav li a {
     color: rgb(244, 75, 66);
     text-decoration: none;
     cursor: pointer;
+    transition: all 0.15s ease;
 }
 
+nav li a:hover {
+
+  border-bottom: solid 5px  rgb(244, 75, 66);
+}
 nav {
   position: fixed;
   left: 10px;
@@ -73,9 +78,7 @@ nav {
   top: 30px;
 }
 .activeNav {
-  background-color: rgb(244, 75, 66);
-  border-radius: 5px;
-  color: black;
+  border-bottom: solid 5px  rgb(244, 75, 66);
 }
 .text {
   font-family: caviardreams;
@@ -163,8 +166,9 @@ progress::-webkit-progress-bar {background-color: #000; }
 
 .diceBtn {
   width: 100%;
+
 }
-.button .switch:hover {
+.button:hover {
   background-color: rgb(244, 75, 66);
   color: rgba(17,17,17,1);
 
@@ -205,8 +209,17 @@ progress::-webkit-progress-bar {background-color: #000; }
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  transition: all 0.3s ease;
 }
-
+.switch:hover {
+  background-color: rgb(244, 75, 66);
+  color: rgba(17,17,17,1);
+}
 .headerContainer {
   width: 100%;
   height: 5%;
@@ -241,7 +254,15 @@ progress::-webkit-progress-bar {background-color: #000; }
 }
 
 .centerContainer {
-  max-width: 70%;
+  max-width: 100%;
+  border-radius: 5px;
+  border: solid 5px  rgb(17, 17, 17);
+  padding: 30px;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 .page {
@@ -249,6 +270,7 @@ progress::-webkit-progress-bar {background-color: #000; }
   justify-content: space-between;
   align-items: center;
   margin-top: 40px;
+  padding: 0px 10px 0px 10px;
 }
 
 .rightContainer {
@@ -265,7 +287,9 @@ progress::-webkit-progress-bar {background-color: #000; }
 }
 .leftContainer {
   height: 400px;
-  flex-grow: 2;
+  width: 25%;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .bottomcontainer {
@@ -327,7 +351,7 @@ progress::-webkit-progress-bar {background-color: #000; }
 }
 .diceShit {
   text-align: right;
-  margin: 5px;
+  margin: 8px;
   font-family: caviardreamsB;
 }
 .capitalize {
@@ -346,7 +370,7 @@ progress::-webkit-progress-bar {background-color: #000; }
   }
   .sliderD {
     -webkit-appearance: none;
-    width: 100%;
+    width: 97%;
     height: 15px;
     border-radius: 5px;
     background-color: rgb(17, 17, 17);
@@ -425,8 +449,8 @@ input:checked + .slider:before {
 
 .messagetextfield {
   color: rgb(244, 75, 66);
+  background-color: rgb(17, 17, 17);
   border-radius: 5px;
-  background-color: black;
   padding: 10px;
   border: none;
   -webkit-user-select: none; /* Safari */
@@ -511,4 +535,8 @@ input:checked + .slider:before {
 
 .hide {
   opacity: 0;
+}
+
+.dicebutton {
+  height: 40px;
 }

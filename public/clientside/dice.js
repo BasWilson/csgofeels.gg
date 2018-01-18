@@ -76,7 +76,29 @@ $("#rollBTN").click(function() {
   socket.emit('diceData', dice);
 });
 
+$("#clearbutton").click(function() {
+  document.getElementById("betAmountField").value = "";
+});
 
+$("#halfbutton").click(function() {
+  var bet = document.getElementById("betAmountField").value;
+  bet = bet / 2;
+  document.getElementById("betAmountField").value = bet.toFixed(2);
+});
+
+$("#x2button").click(function() {
+  var bet = document.getElementById("betAmountField").value;
+  bet = bet * 2;
+  document.getElementById("betAmountField").value = bet.toFixed(2);
+});
+
+$("#maxbutton").click(function() {
+  var max = Cookies.get('balance');
+  document.getElementById("betAmountField").value = max;
+});
+$("#minbutton").click(function() {
+  document.getElementById("betAmountField").value = 0.1;
+});
 $("#overswitch").click(function() {
   if (over == true) {
     over = false;

@@ -329,8 +329,8 @@ io.on('connection', function(socket){
               d2 = randomFloat(1, 100);
               d3 = randomFloat(1, 100);
               d4 = randomFloat(1, 100);
-              dicePercentage = d1+d2+d3;
-              dicePercentage = dicePercentage / 3;
+              dicePercentage = d1;
+              //dicePercentage = dicePercentage / 2;
               var gameID = dicePercentage * d2 * d4 * d3 * d1 * d2;
               gameID = gameID.toFixed(0);
               diceData.gameID = gameID;
