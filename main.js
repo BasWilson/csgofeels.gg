@@ -305,20 +305,19 @@ io.on('connection', function(socket){
     } else {
     getBalance(diceData);
     function getBalance() {
-      //If enough balance start calculation
+        //Read user's balance from the database
         admin.database().ref('/users/' + diceData.userID + '/properties/').once('value').then(function(snapshot) {
           var balance = (snapshot.val() && snapshot.val().balance);
           balance = parseFloat(balance);
           var bet = parseFloat(diceData.betAmount);
-          console.log(balance);
-          if (balance < bet) {
-            socket.emit('invalidBalance');
-            console.log(balance, diceData.betAmount);
+          if (balance < bet) { // Check if the user's balance is less then the bet
+            socket.emit('invalidBalance'); // Not enough balance, <3
+            console.log("Not enough balance to roll");
             return false;
-          } if (true) {
-            verifyDice(diceData)
+          } if (true) { //If user did have enough, we return true and continue the dice function
+            verifyDice(diceData);
           } else {
-            //stop
+            // Not enough balance, <3. Stop it all.
           }
           });
     }
@@ -329,26 +328,25 @@ io.on('connection', function(socket){
               d2 = randomFloat(1, 100);
               d3 = randomFloat(1, 100);
               d4 = randomFloat(1, 100);
-              dicePercentage = d1;
-              //dicePercentage = dicePercentage / 2;
-              var gameID = dicePercentage * d2 * d4 * d3 * d1 * d2;
+              dicePercentage = d1; // This is the final dice percentage, you could add do it like d1 + d2 + d3. but not recommended.
+              var gameID = dicePercentage * d2 * d4 * d3 * d1 * d2; // The id of each game, TODO Make it 100% unique
               gameID = gameID.toFixed(0);
               diceData.gameID = gameID;
               dicePercentage = dicePercentage.toFixed(2);
               console.log('Calculated dice percentage: '+dicePercentage);
 
               //Payout dice and do other database stuff
-              if (diceData.over == true) {
+              if (diceData.over == true) { // if the user is rolling over the percentage
                 if (dicePercentage > diceData.percentage) {
                   socket.emit('wonDice', dicePercentage);
-                  writeGameToDB(diceData);
-                  addBalance(diceData);
+                  writeGameToDB(diceData); //Read the function above
+                  addBalance(diceData); // ^^
                 } else if (dicePercentage < diceData.percentage) {
                   socket.emit('lostDice', dicePercentage);
                   writeGameToDB(diceData);
                   removeBalance(diceData);
                 }
-              } else {
+              } else { // if the user is rolling under the percentage
                 if (dicePercentage < diceData.winChance) {
                   socket.emit('wonDice', dicePercentage);
                   writeGameToDB(diceData);

@@ -25,26 +25,31 @@
             </nav>
     </div>
 
-    <div class="centerContainer">
-      <div class="chart">
-        <canvas class="myChart" id="myChart"></canvas>
-      </div>
-      <progress class="progressbar" value="1000" max="1000" id="progressBar"></progress>
-      <a id="output2" class="text crashText">x0.0</a>
-      <input id="betTextField" class="textfield" value="0.0" placeholder="Bet" ></input><br>
-      <a id="searchBTN" class="button">Place Bet</a><br>
-    </div>
-
-    <div class="rightContainer">
-
-    </div>
-
-    <div class="leftContainer">
-      <a class="text">Chat</a>
-      <div id="message" class="chatContainer">
-
-      </div>
+    <div class="page">
+      <div class="leftContainer">
+        <a class="text">CHAT</a>
+        <div id="message" class="chatContainer">
+        </div>
         <input type="text" id="messageField" class="messagetextfield" placeholder="What's on your mind?"></input>
+      </div>
+
+      <div class="mainHolder">
+
+
+        <div class="centerContainer">
+          <canvas id="crashCanvas" class="crashCanvas" width="120" height="500">
+        Your browser does not support the HTML5 canvas tag.</canvas>
+        <progress class="progressbar" value="1000" max="1000" id="progressBar"></progress>
+        <a id="crashValue" class="text crashText">x0.0</a>
+
+        <div class="bottomcontainer">
+          <input id="betTextField" class="textfield" value="0.0" placeholder="Bet" ></input><br>
+          <a id="searchBTN" class="button">Place Bet</a><br>
+        </div>
+        </div>
+
+
+      </div>
     </div>
 
   </div>
@@ -57,7 +62,6 @@
     <script src="/clientside/Chart.js"> </script>
     <script src="/clientside/clicks.js"></script>
     <script src="/clientside/crash.js"></script>
-    <script src="/clientside/effect.js"> </script>
     <script src="/clientside/progress.js"> </script>
     <script src="/clientside/chat.js"> </script>
     <script src="/clientside/user.js"> </script>

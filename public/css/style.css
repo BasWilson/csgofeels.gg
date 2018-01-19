@@ -92,6 +92,11 @@ nav {
   user-select: none; /* Standard */
 }
 
+.crashCanvas {
+  background-color: rgba(17,17,17,1);
+  border-radius: 5px;
+  padding: 20px 10px 20px 10px;
+}
 .textSmall {
   font-size: 10px;
   text-align: left;

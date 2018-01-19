@@ -5,16 +5,39 @@ var activeGame = false;
 var chartInterval;
 var crashArray = [];
 
+
+/////////////
+//CRASH LINE
+/////////////
+var c = document.getElementById("crashCanvas");
+var ctx = c.getContext("2d");
+ctx.beginPath();
+ctx.moveTo(60,540); // Go 100 over actual canvas size, this way crash starts at 0.
+
+//CANVAS STYLING
+ctx.lineWidth = 100;
+
+function createLine(n) {
+  if (activeGame == true) {
+
+    n = n * 40;//This is why we go 100 over canvas size
+    n = 540 - n;// Go 100 over actual canvas size, this way crash starts at 0.
+
+    ctx.lineTo(60, n);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgb(244, 75, 66)';
+
+  }
+}
 function startCrash() {
 
   //Set HTML values to active game values
   $("#searchBTN").text("Get out");
   $("#output").text("Bets are locked in");
   $("#betTextField").attr("background-color", "grey");
-  document.getElementById("output2").style.color = "rgb(244, 75, 66)";
+  document.getElementById("crashValue").style.color = "rgb(244, 75, 66)";
   $("#betTextField").attr("disabled", "disabled");
   activeGame = true
-  setChart();
 }
 
 function startCrashIntermission() {
@@ -30,92 +53,25 @@ function startCrashIntermission() {
 function crashed(crashData) {
 
   //Reset all HTML values back to normal
+
   $("#searchBTN").text("Place Bet");
   $("#output").text("Place a bet");
-  $("#output2").text("CRASHED AT x"+ crashData.crashPercentage);
-  document.getElementById("output2").style.color = "red" ;
+  $("#crashValue").text("x"+ crashData.crashPercentage);
+  document.getElementById("crashValue").style.color = "red" ;
   $("#betTextField").removeAttr("disabled");
   $("#progressBar").val(1000);
   $("#betTextField").attr("cursor", "text");
   activeGame = false;
-  clearInterval(chartInterval);
 
 }
 
-function setChart(n) {
-
-  chartInterval = setInterval(function(){
-
-  var canvas = document.getElementById("myChart");
-  var ctx = canvas.getContext('2d');
-
-  // Global Options:
-  Chart.defaults.global.defaultFontColor = 'rgb(244, 75, 66)';
-  Chart.defaults.global.defaultFontSize = 16;
-
-  var data = {
-    labels: crashArray,
-    datasets: [{
-        label: "Crash",
-        fill: true,
-        lineTension: 0.1,
-        backgroundColor: "rgba(244, 75, 66, 0.2)",
-        borderColor: "rgb(244, 75, 66);",
-        borderCapStyle: 'butt',
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
-        pointBorderColor: "white",
-        pointBackgroundColor: "black",
-        pointBorderWidth: 0,
-        pointHoverRadius: 0,
-        pointHoverBackgroundColor: "rgb(244, 75, 66)",
-        pointHoverBorderColor: "rgb(244, 75, 66)",
-        pointHoverBorderWidth: 2,
-        pointRadius: 0,
-        pointHitRadius: 0,
-        // notice the gap in the data and the spanGaps: false
-        data: crashArray,
-        spanGaps: false,
-      }
-    ]
-  };
-
-  // Notice the scaleLabel at the same level as Ticks
-  var options = {
-    scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero:true,
-                      autoSkip: false
-                  }
-              }]
-          }
-  };
-
-  // Chart declaration:
-  var myBarChart = new Chart(ctx, {
-    type: 'line',
-    data: data,
-    options: options
-  });
-}, 1000);
-}
-
-function setChartValue(n) {
-
-  if (activeGame == true) {
-    crashArray.push(n);
-    console.log(crashArray);
-  }
-}
 function placeBet(betAmount) { //Send your bet to the server
   betAmount = document.getElementById('betTextField').value;
   socket.emit('crashBet', betAmount);
 }
 
 function setCrashValue(n) {
-  $("#output2").text("x" +n);
+  $("#crashValue").text("x" +n);
 }
 
 function getOutCrash() { //Try to leave the current active crash
@@ -150,7 +106,7 @@ socket.on('crashIntermission', function (data) { // Server has started Crash rou
 });
 socket.on('crashValue', function (n) { // Server has started Crash round
   setCrashValue(n);
-  setChartValue(n);
+  createLine(n);
 });
 socket.on('crashed', function (crashData) { // Server crashed it
   crashed(crashData);
