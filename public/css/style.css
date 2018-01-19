@@ -545,3 +545,31 @@ input:checked + .slider:before {
 .dicebutton {
   height: 40px;
 }
+
+.rouletteholder {
+  height: 80px;
+  width: 800px;
+  display: flex;
+  flex-direction: row;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 5px solid rgb(244, 75, 66);
+  border-radius: 5px;
+}
+.roulette {
+  border-radius: 5px;
+  margin: auto 5px auto 5px;
+  font-family: caviardreamsB;
+  color: white;
+  padding: 20px;
+}
+
+.redR {
+  background-color: rgb(244, 75, 66);
+}
+.blackR {
+  background-color: rgb(17, 17, 17);
+}
+.greenR {
+  background-color: rgb(66, 244, 149);
+}
