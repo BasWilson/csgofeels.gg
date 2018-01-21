@@ -22,6 +22,7 @@
                 <li><a class="activeNav" href="/dice">DICE</a></li>
                 <li><a href="/slots">SLOTS</a></li>
                 <li><a href="/fairness">PROVABLY FAIR</a></li>
+                <li><a href="/settings">SETTINGS</a></li>
               </ul>
             </nav>
 
@@ -111,41 +112,45 @@
 
       </div>
     </div>
-
-
-
-
-
 </div>
     <!--
     Popup windows
     !-->
-      <div class="popup dice-popup">
+    <div class="popup dice-popup">
         <div class="popup-item-container">
-
         <a id="popup-text" class="text popup-item"></a>
         <a id="close-popup-button" class="button red">CLOSE</a>
         <input id="disable-popup"type="checkbox"name="popups" value="disabled" ><span class="text">Disable Pop-ups</span></input>
       </div>
     </div>
+
     <div class="popup generic-popup">
       <div class="popup-item-container">
       <a id="generic-popup-text" class="text popup-item"></a>
       <a id="generic-close-popup-button" class="button red">CLOSE</a>
     </div>
+    </div>
+
+  //profile-popup
+  <div class="popup profile-popup">
+    <div class="popup-item-container">
+    <a id="profile-popup-text" class="text popup-item pointer"></a>
+    <input id="tipField" class="textfield" style="width:200px"type="number" placeholder="TIP AMOUNT" ></input>
+    <a id="profile-tip-popup-button" class="button red">TIP</a>
+    <a id="profile-close-popup-button" class="button red">CLOSE</a>
   </div>
+</div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
     <script src="/clientside/cookie.js"> </script>
     <script src="/clientside/jquery-3.2.1.min.js"></script>
     <script src="/clientside/firebase.js"> </script>
-    <script src="/clientside/Chart.js"> </script>
     <script src="/clientside/clicks.js"></script>
     <script src="/clientside/dice.js"></script>
-    <script src="/clientside/progress.js"> </script>
     <script src="/clientside/chat.js"> </script>
     <script src="/clientside/user.js"> </script>
+    <script src="/clientside/tip.js"> </script>
   </body>
 
 </html>

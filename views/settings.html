@@ -6,55 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="shortcut icon" href="/css/favicon.png" />
-    <title>Crash</title>
+    <title>SETTINGS</title>
   </head>
   <body>
     <div class="bodyWrapper">
     <div class="headerContainer">
-      <a class="text header">CSGORUSH<span style="color: rgb(244, 75, 66);">.</span>GG</a>
+      <a class="text header">WILSON<span class="red-text-big">.</span>GG</a>
 
             <a id="playerCount" class="text"></a>
-            <a id="balance" class="text">0.00<span style="color: rgb(244, 75, 66);"> COINS</span></a>
+            <a id="balance" class="text">0.00 COINS></a>
             <nav>
               <ul>
-                <li><a class="activeNav" href="/crash">CRASH</a></li>
+                <li><a href="/crash">CRASH</a></li>
                 <li><a href="/roulette">ROULETTE</a></li>
                 <li><a href="/dice">DICE</a></li>
                 <li><a href="/slots">SLOTS</a></li>
                 <li><a href="/fairness">PROVABLY FAIR</a></li>
-                <li><a href="/settings">SETTINGS</a></li>
+                <li><a class="activeNav" href="/settings">SETTINGS</a></li>
               </ul>
             </nav>
+
+            <div id="GoogleLogin"class="google-button">
+              Sign in with
+              <div class="google-image"></div>
+            </div>
     </div>
 
     <div class="page">
-      <div class="leftContainer">
-        <a class="text">CHAT</a>
-        <div id="message" class="chatContainer">
-        </div>
-        <input type="text" id="messageField" class="messagetextfield" placeholder="What's on your mind?"></input>
-      </div>
-
       <div class="mainHolder">
-
-
         <div class="centerContainer">
-          <canvas id="crashCanvas" class="crashCanvas" width="120" height="500">
-        Your browser does not support the HTML5 canvas tag.</canvas>
-        <progress class="progressbar" value="1000" max="1000" id="progressBar"></progress>
-        <a id="crashValue" class="text crashText">x0.0</a>
+          <a class="text textSmall diceShit textalignleft">POP-UPS</a>
+          <input id="disable-popup" type="checkbox"name="popups" value="disabled" ></input><br>
+          <a class="text textSmall diceShit textalignleft" style="cursor: pointer"href="http://steamcommunity.com/id/me/tradeoffers/privacy#trade_offer_access_url">TRADE LINK (CLICK ME)</a>
+          <input id="tradelinkField" class="textfield" style="width: 500px; text-align: left;"placeholder="https://steamcommunity.com/tradeoffer/new/?partner=XXXXXXXXXXXXXXXXXXX" ></input><br><br>
 
-        <div class="bottomcontainer">
-          <input id="betTextField" class="textfield" value="0.0" placeholder="Bet" ></input><br>
-          <a id="searchBTN" class="button">Place Bet</a><br>
+          <a id="savesettings" class="button diceShit">SAVE SETTINGS</a>
         </div>
-        </div>
-
-
       </div>
     </div>
+</div>
+    <!--
+    POPUP
+    -->
+    <div class="popup generic-popup">
+      <div class="popup-item-container">
+      <a id="generic-popup-text" class="text popup-item"></a>
+      <a id="generic-close-popup-button" class="button red">CLOSE</a>
+    </div>
+    </div>
 
-  </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
@@ -62,9 +63,9 @@
     <script src="/clientside/jquery-3.2.1.min.js"></script>
     <script src="/clientside/firebase.js"> </script>
     <script src="/clientside/clicks.js"></script>
-    <script src="/clientside/crash.js"></script>
     <script src="/clientside/chat.js"> </script>
     <script src="/clientside/user.js"> </script>
+    <script src="/clientside/settings.js"> </script>
   </body>
 
 </html>

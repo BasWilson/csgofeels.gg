@@ -77,8 +77,22 @@ function getBalance(balance, userId) {
   userId = user.uid;
   firebase.database().ref('/users/' + userId + '/properties/').once('value').then(function(snapshot) {
     balance = (snapshot.val() && snapshot.val().balance);
-    $('#balance').text(balance+" COINS");
+
+	  if (balance == null) {
+		  balance = 0.00;
+	    $('#balance').text("0.00 COINS");
+	  } else {
+		$('#balance').text(balance+" COINS");
+	  }
     Cookies.set('balance', balance);
 
+  });
+}
+
+function saveTradelink(tradelink) {
+  var user = firebase.auth().currentUser;
+
+  firebase.database().ref('publicusers/' + user.uid).set({
+    tradelink: tradelink
   });
 }

@@ -261,7 +261,9 @@ res.sendFile(__dirname + '/views/crash.html');
 app.get('/roulette', function(req, res){
 res.sendFile(__dirname + '/views/roulette.html');
 });
-
+app.get('/settings', function(req, res){
+res.sendFile(__dirname + '/views/settings.html');
+});
 io.on('connection', function(socket){
     playercount ++;
     console.log('user connected, Online users: ' + playercount);
@@ -295,6 +297,10 @@ io.on('connection', function(socket){
     socket.emit('gotOut');
   });
 
+  ///////////////
+  ///TIPPING
+  ///////////////
+  //TODO
   ///////////////
   ///DICE
   ///////////////
@@ -339,6 +345,10 @@ io.on('connection', function(socket){
               if (diceData.over == true) { // if the user is rolling over the percentage
                 if (dicePercentage > diceData.percentage) {
                   socket.emit('wonDice', dicePercentage);
+				  if (diceData.profitOnWin > 299) {
+						  io.emit("highRoller", diceData);
+				  }
+
                   writeGameToDB(diceData); //Read the function above
                   addBalance(diceData); // ^^
                 } else if (dicePercentage < diceData.percentage) {
@@ -349,6 +359,9 @@ io.on('connection', function(socket){
               } else { // if the user is rolling under the percentage
                 if (dicePercentage < diceData.winChance) {
                   socket.emit('wonDice', dicePercentage);
+				  if (diceData.profitOnWin > 299) {
+						  io.emit("highRoller", diceData);
+				  }
                   writeGameToDB(diceData);
                   addBalance(diceData);
                 } else if (dicePercentage > diceData.winChance) {

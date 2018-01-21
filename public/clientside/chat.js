@@ -1,3 +1,5 @@
+var socket = io();
+
 function scrollDown() {
   $('#message').animate({
   scrollTop: $('#message').get(0).scrollHeight}, 500);
@@ -7,6 +9,7 @@ var message;
 var data;
 
 function sendMessage() {
+  var user = firebase.auth().currentUser;
 
       firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
@@ -20,7 +23,8 @@ function sendMessage() {
         } else {
           data = {
             message: message,
-            username: usernameCookie
+            username: usernameCookie,
+            uid: user.uid
           }
           socket.emit('message', data)
 
@@ -37,7 +41,33 @@ function sendMessage() {
 }
 
 socket.on('message', function (data) {
-message = '<a id="message" class="chatText">'+data.username+": "+ data.message+'</a><br>';
+  var color;
+  firebase.database().ref('/roles/' + data.uid).once('value').then(function(snapshot) {
+    role = (snapshot.val() && snapshot.val().role);
+    if (role == "Admin") {
+      	color = "rgb(238,0,255)";
+
+    }
+    if (role == "Moderator") {
+      	color = "red";
+    }
+    if (role == "Support") {
+        color = "blue";
+    }
+    message = '<a id="'+data.uid+'" class="chatText"><span style="color:'+color+'; text-transform: uppercase;">'+role+'</span>'+" "+'<span class="lel" id="'+data.uid+'" data-name="'+data.username+'"  style="cursor: pointer">'+data.username+'</span>'+": "+ data.message+'</a><br>';
+    $("#message").append(message);
+    scrollDown();
+    $("span").click(function(){
+      var uid = $(this).attr("id");
+      var name = $(this).attr("data-name")
+      showProfilePopup(uid, name);
+    });
+  });
+
+});
+
+socket.on('highRoller', function (diceData) {
+message = '<a id="message" class="chatText" style="color: green;">'+"SOMEONE JUST WON "+ diceData.profitOnWin+" COINS!"+'</a><br>';
 $("#message").append(message);
 scrollDown();
 });

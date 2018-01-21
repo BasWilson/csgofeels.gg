@@ -35,14 +35,27 @@ function showPopup(dicePercentage, win, value) {
   }
 }
 
-function showBalancePopup() {
-      $("#generic-popup-text").text("You don't have enough balance!");
-      document.getElementById("generic-popup-text").style.color = "white";
+function showGenericPopup(text) {
+    $("#generic-popup-text").text(text);
+    document.getElementById("generic-popup-text").style.color = "white";
     $( ".generic-popup" ).fadeIn("fast")
     $(".generic-popup").css("display", "inline-flex");
     $( ".bodyWrapper" ).fadeOut("fast");
 }
 
+function showProfilePopup(uid, name) {
+    $("#profile-popup-text").text("View "+name+"'s Steam profile");
+    $("#profile-popup-text").attr("href","http://steamcommunity.com/id/"+uid);
+
+    document.getElementById("generic-popup-text").style.color = "white";
+    $( ".profile-popup" ).fadeIn("fast")
+    $(".profile-popup").css("display", "inline-flex");
+    $( ".bodyWrapper" ).fadeOut("fast");
+
+    $("#profile-tip-popup-button").click(function() {
+      tipPlayer(uid);
+    });
+}
 $("#close-popup-button").click(function() {
   closePopup();
 });
@@ -50,8 +63,13 @@ $("#close-popup-button").click(function() {
 $("#generic-close-popup-button").click(function() {
   closePopup();
 });
+$("#profile-close-popup-button").click(function() {
+  closePopup();
+});
+
 function closePopup(dicePercentage) {
   $( ".dice-popup" ).fadeOut("fast");
+  $( ".profile-popup" ).fadeOut("fast");
   $( ".generic-popup" ).fadeOut("fast");
   $( ".bodyWrapper" ).fadeIn("fast");
 
@@ -68,6 +86,25 @@ socket.on('balance', function () { // Show the player balance
     getBalance();
 });
 
-socket.on('invalidBalance', function () {
-  showBalancePopup();
+socket.on('receivedTip', function (tipData) { // Show the player his tip
+    var text = "You got tipped "+tipData.tipAmount+" by "+tipData.tipperName;
+    showGenericPopup(text);
 });
+socket.on('invalidBalance', function (text) {
+  text = "You don't have enough balance!";
+  showGenericPopup(text);
+});
+
+function tipPlayer(uid, tipAmount) {
+
+  var user = firebase.auth().currentUser;
+
+  tipAmount = document.getElementById('tipField').value;
+  tipData = {
+    receiverUid: uid,
+    senderUid: user.uid,
+    tipAmount: tipAmount,
+    tipperName: user.username
+  };
+  socket.emit('sendTip', tipData);
+}

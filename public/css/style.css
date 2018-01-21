@@ -573,3 +573,7 @@ input:checked + .slider:before {
 .greenR {
   background-color: rgb(66, 244, 149);
 }
+
+.pointer {
+  cursor: pointer;
+}
