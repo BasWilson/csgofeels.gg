@@ -43,19 +43,6 @@ function showGenericPopup(text) {
     $( ".bodyWrapper" ).fadeOut("fast");
 }
 
-function showProfilePopup(uid, name) {
-    $("#profile-popup-text").text("View "+name+"'s Steam profile");
-    $("#profile-popup-text").attr("href","http://steamcommunity.com/id/"+uid);
-
-    document.getElementById("generic-popup-text").style.color = "white";
-    $( ".profile-popup" ).fadeIn("fast")
-    $(".profile-popup").css("display", "inline-flex");
-    $( ".bodyWrapper" ).fadeOut("fast");
-
-    $("#profile-tip-popup-button").click(function() {
-      tipPlayer(uid);
-    });
-}
 $("#close-popup-button").click(function() {
   closePopup();
 });
@@ -82,29 +69,68 @@ function closePopup(dicePercentage) {
 
 }
 
+function instantlyClosePopup() {
+  $( ".dice-popup" ).hide();
+  $( ".profile-popup" ).hide();
+  $( ".generic-popup" ).hide();
+  $( ".bodyWrapper" ).show();
+}
+
 socket.on('balance', function () { // Show the player balance
     getBalance();
 });
 
-socket.on('receivedTip', function (tipData) { // Show the player his tip
-    var text = "You got tipped "+tipData.tipAmount+" by "+tipData.tipperName;
-    showGenericPopup(text);
-});
 socket.on('invalidBalance', function (text) {
   text = "You don't have enough balance!";
   showGenericPopup(text);
 });
 
+///////////////
+//TIPPING
+///////////////
 function tipPlayer(uid, tipAmount) {
 
   var user = firebase.auth().currentUser;
 
   tipAmount = document.getElementById('tipField').value;
+  tipAmount = parseFloat(tipAmount);
+  tipAmount = tipAmount.toFixed(2);
   tipData = {
     receiverUid: uid,
     senderUid: user.uid,
     tipAmount: tipAmount,
     tipperName: user.username
   };
+  
   socket.emit('sendTip', tipData);
+  //SET balance
+  var newBalance = parseFloat(Cookies.get('balance'));
+  newBalance = newBalance - parseFloat(tipAmount);
+  newBalance = newBalance.toFixed(2);
+  $('#balance').text(newBalance+" COINS");
+  Cookies.set('balance', newBalance);
+
+  instantlyClosePopup();
+  var text = "You tipped "+tipAmount+" coins!"
+  showGenericPopup(text);
 }
+
+function showProfilePopup(uid, name) {
+    $("#profile-popup-text").text("View "+name+"'s Steam profile");
+    $("#profile-popup-text").attr("href","http://steamcommunity.com/id/"+uid);
+
+    document.getElementById("generic-popup-text").style.color = "white";
+    $( ".profile-popup" ).fadeIn("fast")
+    $(".profile-popup").css("display", "inline-flex");
+    $( ".bodyWrapper" ).fadeOut("fast");
+
+    $("#profile-tip-popup-button").click(function() {
+      tipPlayer(uid);
+    });
+}
+
+socket.on('invalidTip', function (text) {
+  instantlyClosePopup();
+  text = "Oops, something went wrong...";
+  showGenericPopup(text);
+});

@@ -46,13 +46,15 @@ socket.on('message', function (data) {
     role = (snapshot.val() && snapshot.val().role);
     if (role == "Admin") {
       	color = "rgb(238,0,255)";
-
     }
     if (role == "Moderator") {
       	color = "red";
     }
     if (role == "Support") {
         color = "blue";
+    }
+    if (role == null) {
+        role = "";
     }
     message = '<a id="'+data.uid+'" class="chatText"><span style="color:'+color+'; text-transform: uppercase;">'+role+'</span>'+" "+'<span class="lel" id="'+data.uid+'" data-name="'+data.username+'"  style="cursor: pointer">'+data.username+'</span>'+": "+ data.message+'</a><br>';
     $("#message").append(message);

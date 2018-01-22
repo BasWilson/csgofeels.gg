@@ -246,6 +246,53 @@ function addBalance(diceData) {
   });
 }
 
+function tipPlayer(tipData) {
+
+  var senderBalanceRef = admin.database().ref('users/' + tipData.senderUid + '/properties/');
+
+  senderBalanceRef.transaction(function(balance) {
+    if (balance) {
+      if (balance.balance && balance.balance[tipData.senderUid]) {
+        //If anything in the transaction went wrong or the user tried to mess with it, it will be restored.
+        var newBalance = parseFloat(balance.balance) - parseFloat(tipData.tipAmount);
+        balance.balance = parseFloat(newBalance).toFixed(2);
+        balance.balance[tipData.senderUid] = null;
+      } else {
+        //Pays the profitOnWin var from the user out if he/she wins
+        var newBalance = parseFloat(balance.balance) - parseFloat(tipData.tipAmount);
+        balance.balance = parseFloat(newBalance).toFixed(2);
+        if (!balance.balance) {
+          balance.balance = {};
+        }
+        balance.balance[tipData.senderUid] = true;
+      }
+    }
+    return balance;
+  });
+
+  var receiverBalanceRef = admin.database().ref('users/' + tipData.receiverUid + '/properties/');
+
+  receiverBalanceRef.transaction(function(balance) {
+    if (balance) {
+      if (balance.balance && balance.balance[tipData.receiverUid]) {
+        //If anything in the transaction went wrong or the user tried to mess with it, it will be restored.
+        var newBalance = parseFloat(balance.balance) - parseFloat(tipData.tipAmount);
+        balance.balance = parseFloat(newBalance).toFixed(2);
+        balance.balance[tipData.receiverUid] = null;
+      } else {
+        //Pays the profitOnWin var from the user out if he/she wins
+        var newBalance = parseFloat(balance.balance) + parseFloat(tipData.tipAmount);
+        balance.balance = parseFloat(newBalance).toFixed(2);
+        if (!balance.balance) {
+          balance.balance = {};
+        }
+        balance.balance[tipData.receiverUid] = true;
+      }
+    }
+    return balance;
+  });
+
+}
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -300,7 +347,33 @@ io.on('connection', function(socket){
   ///////////////
   ///TIPPING
   ///////////////
-  //TODO
+
+  socket.on('sendTip', function (tipData) {
+
+    if (tipData.tipAmount <= 0.0) {
+      socket.emit('invalidTip');
+    } else {
+    getBalanceForTip(tipData);
+    function getBalanceForTip(tipData) {
+        //Read user's balance from the database
+        admin.database().ref('/users/' + tipData.senderUid + '/properties/').once('value').then(function(snapshot) {
+          var balance = (snapshot.val() && snapshot.val().balance);
+          balance = parseFloat(balance);
+          var tip = parseFloat(tipData.tipAmount);
+          console.log(tip);
+          if (balance < tip) { // Check if the user's balance is less then the tip
+            socket.emit('invalidTip'); // Not enough balance, <3
+            console.log("Not enough balance to tip");
+            return false;
+          } if (true) { //If user did have enough, we return true and continue the dice function
+            tipPlayer(tipData);
+          } else {
+            // Not enough balance, <3. Stop it all.
+          }
+          });
+    }
+  }
+});
   ///////////////
   ///DICE
   ///////////////
@@ -334,7 +407,7 @@ io.on('connection', function(socket){
               d2 = randomFloat(1, 100);
               d3 = randomFloat(1, 100);
               d4 = randomFloat(1, 100);
-              dicePercentage = d1; // This is the final dice percentage, you could add do it like d1 + d2 + d3. but not recommended.
+              dicePercentage = d1; // This is the final dice percentage, you could add to it like d1 + d2 + d3. but not recommended.
               var gameID = dicePercentage * d2 * d4 * d3 * d1 * d2; // The id of each game, TODO Make it 100% unique
               gameID = gameID.toFixed(0);
               diceData.gameID = gameID;
@@ -345,10 +418,9 @@ io.on('connection', function(socket){
               if (diceData.over == true) { // if the user is rolling over the percentage
                 if (dicePercentage > diceData.percentage) {
                   socket.emit('wonDice', dicePercentage);
-				  if (diceData.profitOnWin > 299) {
-						  io.emit("highRoller", diceData);
-				  }
-
+    				  if (diceData.profitOnWin > 299) {
+    						  io.emit("highRoller", diceData);
+    				  }
                   writeGameToDB(diceData); //Read the function above
                   addBalance(diceData); // ^^
                 } else if (dicePercentage < diceData.percentage) {
@@ -359,9 +431,9 @@ io.on('connection', function(socket){
               } else { // if the user is rolling under the percentage
                 if (dicePercentage < diceData.winChance) {
                   socket.emit('wonDice', dicePercentage);
-				  if (diceData.profitOnWin > 299) {
-						  io.emit("highRoller", diceData);
-				  }
+      				  if (diceData.profitOnWin > 299) {
+      						  io.emit("highRoller", diceData);
+      				  }
                   writeGameToDB(diceData);
                   addBalance(diceData);
                 } else if (dicePercentage > diceData.winChance) {
