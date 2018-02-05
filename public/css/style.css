@@ -546,6 +546,8 @@ input:checked + .slider:before {
   height: 40px;
 }
 
+
+
 .rouletteholder {
   height: 80px;
   width: 800px;
@@ -555,6 +557,22 @@ input:checked + .slider:before {
   padding-bottom: 5px;
   border: 5px solid rgb(244, 75, 66);
   border-radius: 5px;
+  animation-name: roulette;
+  animation-duration: 5s;
+
+}
+
+
+.colorHolder {
+  height: 80px;
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  animation-name: color;
+  animation-duration: 5s;
 }
 .roulette {
   border-radius: 5px;

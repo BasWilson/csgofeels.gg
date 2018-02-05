@@ -18,8 +18,8 @@
             <nav>
               <ul>
                 <li><a href="/crash">CRASH</a></li>
-                <li><a class="activeNav" href="/roulette">ROULETTE</a></li>
-                <li><a href="/colors">COLORS</a></li>
+                <li><a href="/roulette">ROULETTE</a></li>
+                <li><a class="activeNav" href="/colors">COLORS</a></li>
                 <li><a href="/dice">DICE</a></li>
                 <li><a href="/slots">SLOTS</a></li>
                 <li><a href="/fairness">PROVABLY FAIR</a></li>
@@ -48,22 +48,8 @@
 
         <div class="centerContainer">
 
-          <div class="rouletteholder">
-            <a class="roulette redR ">1</a>
-            <a class="roulette blackR ">14</a>
-            <a class="roulette redR ">2</a>
-            <a class="roulette blackR ">13</a>
-            <a class="roulette redR ">3</a>
-            <a class="roulette blackR ">12</a>
-            <a class="roulette redR ">4</a>
-            <a class="roulette greenR ">0</a>
-            <a class="roulette blackR ">11</a>
-            <a class="roulette redR">5</a>
-            <a class="roulette blackR ">10</a>
-            <a class="roulette redR ">6</a>
-            <a class="roulette blackR ">9</a>
-            <a class="roulette redR ">7</a>
-            <a class="roulette blackR ">8</a>
+          <div id="colors" class="colorHolder">
+
           </div>
 
           <div class="middlerow">
@@ -91,10 +77,18 @@
               <a class="text textSmall diceShit hide">MAX</a>
               <a id="maxbutton" class="text switch switchButton diceShit dicebutton">MAX</a>
             </div>
+            <div class="toprowholder">
+              <a class="text textSmall diceShit">PROFIT ON WIN</a>
+              <a id="profitOnWin" class="text diceShit">0.00</a>
+            </div>
           </div>
 
           <div class="bottomcontainer">
-            <a id="rollBTN" class="button diceShit" style="width: 100%;">BET</a>
+            <a class="text textSmall diceShit">CHOOSE A COLOR AND BET</a><br><br>
+            <a id="redBtn" class="button diceShit" style="width: 100%;">RED</a>
+            <a id="greenBtn" class="button diceShit" style="width: 100%;">GREEN</a>
+            <a id="yellowBtn" class="button diceShit" style="width: 100%;">YELLOW</a>
+            <a id="blueBtn" class="button diceShit" style="width: 100%;">BLUE</a>
             <a id="output" class="text diceShit"></a>
           </div>
 
@@ -103,10 +97,6 @@
 
       </div>
     </div>
-
-
-
-
 
 </div>
     <!--
@@ -126,6 +116,14 @@
       <a id="generic-close-popup-button" class="button red">CLOSE</a>
     </div>
   </div>
+  <div class="popup profile-popup">
+    <div class="popup-item-container">
+      <a id="profile-popup-text" class="text popup-item pointer"></a>
+      <input id="tipField" class="textfield" style="width:200px"type="number" placeholder="TIP AMOUNT" ></input>
+      <a id="profile-tip-popup-button" class="button red">TIP</a>
+      <a id="profile-close-popup-button" class="button red">CLOSE</a>
+    </div>
+  </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
@@ -135,6 +133,8 @@
     <script src="/clientside/clicks.js"></script>
     <script src="/clientside/chat.js"> </script>
     <script src="/clientside/user.js"> </script>
+    <script src="/clientside/colors.js"> </script>
+    <script src="/clientside/timer.js"> </script>
   </body>
 
 </html>

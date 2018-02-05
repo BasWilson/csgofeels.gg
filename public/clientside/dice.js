@@ -15,7 +15,8 @@ var dice = {
   betAmount: 0,
   over: true,
   userID: 0,
-  gameID: 0
+  gameID: 0,
+  gameMode: 'dice'
 };
 
 function setBalance(win) {
