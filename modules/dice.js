@@ -1,8 +1,8 @@
 module.exports = {
 
   joinDiceGameMode: function (gameData, socket) {
-    socket.join('DiceRoom');
-    console.log('Dice room joined');
+    //socket.join('DiceRoom');
+    //console.log('Dice room joined');
     rollDice(gameData, socket);
 
   },
@@ -41,6 +41,7 @@ function rollDice(gameData, socket, d1, d2, d3, d4, dicePercentage) {
       socket.emit('wonDice', dicePercentage);
   if (gameData.profitOnWin > 299) {
       io.emit("highRoller", gameData);
+      console.log('highroller');
   }
       userdata.writeDiceGameToDB(gameData); //Read the function above
       userdata.addBalance(gameData); // ^^

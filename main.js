@@ -7,7 +7,7 @@ var sha256 = require('js-sha256');
 var randomFloat = require('random-float');
 
 
-//OTHER STUFF
+//OTHER Modules
 var userdata = require('./modules/userdata');
 var general = require('./modules/general');
 var tipping = require('./modules/tipping');
@@ -16,6 +16,9 @@ var tipping = require('./modules/tipping');
 var crash = require('./modules/crash');
 var colors = require('./modules/colors');
 var dice = require('./modules/dice');
+
+//GLOBAL VARIABLES
+var playercount = 0;
 
 //HANDLE PAGES HERE
 app.use(express.static(path.join(__dirname, 'public')));

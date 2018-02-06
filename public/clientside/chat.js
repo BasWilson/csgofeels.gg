@@ -1,5 +1,3 @@
-var socket = io();
-
 function scrollDown() {
   $('#message').animate({
   scrollTop: $('#message').get(0).scrollHeight}, 500);
@@ -26,8 +24,7 @@ function sendMessage() {
             username: usernameCookie,
             uid: user.uid
           }
-          socket.emit('message', data)
-
+          socketSendMessage(data);
           document.getElementById('messageField').value = "";
           scrollDown();
         }
@@ -40,15 +37,16 @@ function sendMessage() {
 
 }
 
-socket.on('message', function (data) {
+
+function receiveMessage(data) {
   var color;
   firebase.database().ref('/roles/' + data.uid).once('value').then(function(snapshot) {
     role = (snapshot.val() && snapshot.val().role);
     if (role == "Admin") {
-      	color = "rgb(238,0,255)";
+        color = "rgb(238,0,255)";
     }
     if (role == "Moderator") {
-      	color = "red";
+        color = "red";
     }
     if (role == "Support") {
         color = "blue";
@@ -65,14 +63,14 @@ socket.on('message', function (data) {
       showProfilePopup(uid, name);
     });
   });
+}
 
-});
-
-socket.on('highRoller', function (diceData) {
-message = '<a id="message" class="chatText" style="color: green;">'+"SOMEONE JUST WON "+ diceData.profitOnWin+" COINS!"+'</a><br>';
-$("#message").append(message);
-scrollDown();
-});
+  function showHighRoller(diceData) {
+    console.log('highroller');
+    message = '<a id="message" class="chatText" style="color: green;">'+"SOMEONE JUST WON "+ diceData.profitOnWin+" COINS!"+'</a><br>';
+    $("#message").append(message);
+    scrollDown();
+  }
 
 $("#sendBtn").click(function() {
   sendMessage();
@@ -81,8 +79,4 @@ $(document).keypress(function(e) {
   if(e.which == 13) {
     sendMessage();
   }
-});
-
-socket.on('balance', function (balance) {
-  document.getElementById('balance').innerHTML = balance + " COINS";
 });

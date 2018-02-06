@@ -1,20 +1,19 @@
-var socket = io();
-
-//For a strange reason these only work from here
-socket.on('wonDice', function (dicePercentage) {
+function wonDice(dicePercentage) {
   var win = true;
   $("#output").text("ROLLED "+ dicePercentage + ", you won!");
   document.getElementById("output").style.color = "white" ;
   showPopup(dicePercentage, win);
   setBalance(win);
-});
-socket.on('lostDice', function (dicePercentage) {
+}
+
+function lostDice(dicePercentage) {
   var win = false;
   $("#output").text("ROLLED "+ dicePercentage + ", you lost!");
   document.getElementById("output").style.color = "rgb(244, 75, 66)" ;
   showPopup(dicePercentage, win);
   setBalance(win);
-});
+}
+
 
 function showPopup(dicePercentage, win, value) {
   //Check if user has disabled popups
@@ -76,14 +75,6 @@ function instantlyClosePopup() {
   $( ".bodyWrapper" ).show();
 }
 
-socket.on('balance', function () { // Show the player balance
-    getBalance();
-});
-
-socket.on('invalidBalance', function (text) {
-  text = "You don't have enough balance!";
-  showGenericPopup(text);
-});
 
 ///////////////
 //TIPPING
@@ -101,8 +92,8 @@ function tipPlayer(uid, tipAmount) {
     tipAmount: tipAmount,
     tipperName: user.username
   };
-  
-  socket.emit('sendTip', tipData);
+
+  socketSendTip(tipData);
   //SET balance
   var newBalance = parseFloat(Cookies.get('balance'));
   newBalance = newBalance - parseFloat(tipAmount);
@@ -129,8 +120,8 @@ function showProfilePopup(uid, name) {
     });
 }
 
-socket.on('invalidTip', function (text) {
+function invalidTip(text) {
   instantlyClosePopup();
   text = "Oops, something went wrong...";
   showGenericPopup(text);
-});
+}

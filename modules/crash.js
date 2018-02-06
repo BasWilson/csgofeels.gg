@@ -3,7 +3,6 @@ var f1, f2, f3, f4, crashFloat, finalCrash;
 var crashID;
 var userID;
 var hash;
-var playercount = 0;
 var CrashActive = false;
 var currentPercentage = 1;
 var crashSpeed = 0.005;

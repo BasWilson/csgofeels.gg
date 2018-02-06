@@ -1,6 +1,5 @@
 //ADMIN
 var admin = require('firebase-admin');
-var refreshToken; // Get refresh token from OAuth2 flow
 
 // Get a reference to the database service
 var database = admin.database();

@@ -1,4 +1,3 @@
-var socket = io();
 var activeGame = false;
 var user;
 var over = true;
@@ -74,7 +73,7 @@ setInterval(function(){
 
 $("#rollBTN").click(function() {
   dice.userID = user.uid;
-  socket.emit('diceData', dice);
+  socketRollDice(dice);
 });
 
 $("#clearbutton").click(function() {
@@ -106,9 +105,4 @@ $("#overswitch").click(function() {
   } else {
     over = true;
   }
-  console.log(over);
-});
-
-socket.on('playerCount', function (playercount) { // Show the online player count
-  $("#playerCount").text("Online Players: " + playercount);
 });
