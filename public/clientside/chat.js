@@ -65,9 +65,8 @@ function receiveMessage(data) {
   });
 }
 
-  function showHighRoller(diceData) {
-    console.log('highroller');
-    message = '<a id="message" class="chatText" style="color: green;">'+"SOMEONE JUST WON "+ diceData.profitOnWin+" COINS!"+'</a><br>';
+  function showHighRoller(gameData) {
+    message = '<a id="message" class="chatText" style="color: green;">'+ gameData.username +" JUST WON "+ gameData.profitOnWin+" COINS!"+'</a><br>';
     $("#message").append(message);
     scrollDown();
   }
@@ -75,8 +74,10 @@ function receiveMessage(data) {
 $("#sendBtn").click(function() {
   sendMessage();
 });
+
 $(document).keypress(function(e) {
   if(e.which == 13) {
     sendMessage();
+    closePopup();
   }
 });

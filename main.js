@@ -1,3 +1,9 @@
+module.exports = {
+  emitDiceGameToRecents: function (gameData) {
+    io.emit('recentDiceGame', gameData);
+}
+};
+
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -28,6 +34,9 @@ res.sendFile(__dirname + '/views/dice.html');
 });
 app.get('/dice', function(req, res){
 res.sendFile(__dirname + '/views/dice.html');
+});
+app.get('/slots', function(req, res){
+res.sendFile(__dirname + '/views/slots.html');
 });
 app.get('/crash', function(req, res){
 res.sendFile(__dirname + '/views/crash.html');
@@ -60,6 +69,7 @@ io.on('connection', function(socket){
   socket.on('message', function(messageData){
     io.emit('message', messageData); // we send data back to all clients
   })
+
 
   ///CRASH
   socket.on('crashBet', function(gameData){
@@ -95,6 +105,15 @@ io.on('connection', function(socket){
     }
   })
 
+  ///SLOTS
+  socket.on('slotsData', function (gameData) {
+
+    if (gameData.betAmount <= 0.0) {
+      socket.emit('invalidColorsBet');
+    } else {
+    userdata.getBalance(gameData, socket);
+    }
+  })
   ///COLORS
   socket.on('colorsData', function (gameData) {
 

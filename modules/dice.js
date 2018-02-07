@@ -20,6 +20,7 @@ var randomFloat = require('random-float');
 
 var userdata = require('../modules/userdata');
 var general = require('../modules/general');
+var main = require('../main');
 
 function rollDice(gameData, socket, d1, d2, d3, d4, dicePercentage) {
 
@@ -33,35 +34,40 @@ function rollDice(gameData, socket, d1, d2, d3, d4, dicePercentage) {
   gameID = gameID.toFixed(0);
   gameData.gameID = gameID;
   dicePercentage = dicePercentage.toFixed(2);
+  gameData.rolledPercentage = dicePercentage;
   console.log('Calculated dice percentage: '+dicePercentage);
 
   //Payout dice and do other database stuff
   if (gameData.over == true) { // if the user is rolling over the percentage
-    if (dicePercentage > gameData.percentage) {
+    if (dicePercentage > gameData.chosenPercentage) {
+      gameData.win = true;
       socket.emit('wonDice', dicePercentage);
   if (gameData.profitOnWin > 299) {
-      io.emit("highRoller", gameData);
-      console.log('highroller');
+      socket.broadcast.emit('highRoller', gameData);
   }
       userdata.writeDiceGameToDB(gameData); //Read the function above
       userdata.addBalance(gameData); // ^^
-    } else if (dicePercentage < gameData.percentage) {
+    } else if (dicePercentage < gameData.chosenPercentage) {
+      gameData.win = false;
       socket.emit('lostDice', dicePercentage);
       userdata.writeDiceGameToDB(gameData);
       userdata.removeBalance(gameData);
     }
   } else { // if the user is rolling under the percentage
     if (dicePercentage < gameData.winChance) {
+      gameData.win = true;
       socket.emit('wonDice', dicePercentage);
     if (gameData.profitOnWin > 299) {
-        io.emit("highRoller", gameData);
+        socket.broadcast.emit('highRoller', gameData);
     }
       userdata.writeDiceGameToDB(gameData);
       userdata.addBalance(gameData);
     } else if (dicePercentage > gameData.winChance) {
+      gameData.win = false;
       socket.emit('lostDice', dicePercentage);
       userdata.writeDiceGameToDB(gameData);
       userdata.removeBalance(gameData);
     }
   }
+  main.emitDiceGameToRecents(gameData);
 }

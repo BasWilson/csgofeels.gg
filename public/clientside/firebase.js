@@ -47,6 +47,7 @@ function checkIfSignedIn() {
       // User is signed in.
       $( ".google-button" ).remove();
       getBalance(balance);
+      setUsername(user);
     } else {
       // No user is signed in.
     }
@@ -92,7 +93,19 @@ function getBalance(balance, userId) {
 function saveTradelink(tradelink) {
   var user = firebase.auth().currentUser;
 
-  firebase.database().ref('publicusers/' + user.uid).set({
+  firebase.database().ref('publicusers/' + user.uid).update({
     tradelink: tradelink
   });
+}
+
+function setUsername(user, username) {
+  username = Cookies.get('username');
+
+  firebase.database().ref('publicusers/' + user.uid).update({
+    username: username
+  });
+}
+
+function getUsername(username) {
+  username = Cookies.get('username');
 }

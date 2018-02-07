@@ -1,12 +1,14 @@
 var activeGame = false;
 var user;
 var over = true;
+var recentCounter = 0;
 
 setTimeout(function () {
   user = firebase.auth().currentUser;
 }, 500);
 
 var dice = {
+  rolledPercentage: 0,
   percentage: 0,
   multiplier: 0,
   winChance: 0,
@@ -15,7 +17,9 @@ var dice = {
   over: true,
   userID: 0,
   gameID: 0,
-  gameMode: 'dice'
+  gameMode: 'dice',
+  username: Cookies.get('username'),
+  win: false
 };
 
 function setBalance(win) {
@@ -35,9 +39,29 @@ function setBalance(win) {
     Cookies.set('balance', newBalance);
   }
 }
+
+function appendRecentDiceGame(gameData, recentGame) {
+  var win = gameData.win;
+
+  if (recentCounter >= 25) {
+    $( ".recents" ).remove();
+    recentCounter = 0;
+  } else {
+    if (win == false) {
+      //user lost money
+      recentGame = '<tr class="recents" ><td>'+gameData.betAmount+'</td><td>'+gameData.rolledPercentage+'</td><td>'+gameData.username+'</td><td style="color: red;">- '+gameData.betAmount+'</td></tr>';
+    } else {
+      recentGame = '<tr class="recents" ><td>'+gameData.betAmount+'</td><td>'+gameData.rolledPercentage+'</td><td>'+gameData.username+'</td><td style="color: green;">'+gameData.profitOnWin+'</td></tr>';
+    }
+    recentCounter++;
+    $("#recentGames").append(recentGame);
+  }
+
+
+}
 setInterval(function(){
-  dice.percentage = document.getElementById("percentageField").value;
-  dice.percentage = document.getElementById("sliderDice").value;
+  dice.chosenPercentage = document.getElementById("percentageField").value;
+  dice.chosenPercentage = document.getElementById("sliderDice").value;
   dice.multiplier = document.getElementById("multiplierField").value;
   dice.winChance = document.getElementById("winchanceField").value;
   dice.betAmount = document.getElementById("betAmountField").value;
@@ -45,7 +69,7 @@ setInterval(function(){
 
 
   //calc profit on win REDO OBVIOUSLY
-  dice.multiplier = dice.percentage * 0.04;
+  dice.multiplier = dice.chosenPercentage * 0.04;
 
   //
   dice.multiplier = dice.multiplier.toFixed(2);
@@ -54,18 +78,18 @@ setInterval(function(){
   document.getElementById('multiplierField').value = dice.multiplier;
   document.getElementById('profitOnWin').innerHTML = dice.profitOnWin;
 
-  document.getElementById('percentageField').value = dice.percentage + "%";
+  document.getElementById('percentageField').value = dice.chosenPercentage + "%";
 
   if (over == false) {
     $("#overundertext").text("ROLLING UNDER");
     document.getElementById("overundertext").style.color = "white" ;
     dice.over = false;
-    document.getElementById('winchanceField').value = dice.percentage + "%";
+    document.getElementById('winchanceField').value = dice.chosenPercentage + "%";
   } else {
     dice.over = true;
     document.getElementById("overundertext").style.color = "rgb(244, 75, 66)" ;
     $("#overundertext").text("ROLLING OVER");
-    document.getElementById('winchanceField').value = 100 - dice.percentage + "%";
+    document.getElementById('winchanceField').value = 100 - dice.chosenPercentage + "%";
   }
 
 }, 20);

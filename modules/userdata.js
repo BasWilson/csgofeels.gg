@@ -10,7 +10,6 @@ module.exports = {
           var bet = parseFloat(gameData.betAmount);
           if (balance < bet) { // Check if the user's balance is less then the bet
             socket.emit('invalidBalance'); // Not enough balance, <3
-            console.log("Not enough balance to roll");
             return false;
           } if (true) { //If user did have enough, we return true and continue the dice function
             general.getGamemode(gameData, socket); // Check what gamemode the user is betting on
@@ -78,13 +77,21 @@ module.exports = {
       userID: gameData.userID,
       bet: gameData.betAmount,
       profit: gameData.profitOnWin,
-      gameID: gameData.gameID
+      gameID: gameData.gameID,
+      username: gameData.username,
+      win: gameData.win,
+      rolledPercentage: gameData.rolledPercentage,
+      chosenPercentage: gameData.chosenPercentage
     });
     admin.database().ref('games/dice/' + gameData.gameID).set({
       userID: gameData.userID,
       bet: gameData.betAmount,
       profit: gameData.profitOnWin,
-      gameID: gameData.gameID
+      gameID: gameData.gameID,
+      username: gameData.username,
+      win: gameData.win,
+      rolledPercentage: gameData.rolledPercentage,
+      chosenPercentage: gameData.chosenPercentage
     });
 
   },

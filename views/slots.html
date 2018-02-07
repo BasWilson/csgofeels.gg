@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="shortcut icon" href="/css/favicon.png" />
-    <title>Dice</title>
+    <title>Slots</title>
   </head>
   <body>
     <div class="bodyWrapper">
@@ -20,8 +20,8 @@
                 <li><a href="/crash">CRASH</a></li>
                 <li><a href="/roulette">ROULETTE</a></li>
                 <li><a href="/colors">COLORS</a></li>
-                <li><a class="activeNav" href="/dice">DICE</a></li>
-                <li><a href="/slots">SLOTS</a></li>
+                <li><a href="/dice">DICE</a></li>
+                <li><a class="activeNav" href="/slots">SLOTS</a></li>
                 <li><a href="/fairness">PROVABLY FAIR</a></li>
                 <li><a href="/settings">SETTINGS</a></li>
               </ul>
@@ -50,61 +50,10 @@
               <a class="text textSmall diceShit textalignleft">BET AMOUNT</a>
               <input id="betAmountField" class="textfield diceShit" value="1.0" placeholder="Bet" ></input>
             </div>
-            <div class="toprowholder">
-              <a class="text textSmall diceShit hide">CLEAR</a>
-              <a id="clearbutton" class="text switch switchButton diceShit dicebutton">CLEAR</a>
-            </div>
-            <div class="toprowholder">
-              <a class="text textSmall diceShit hide">1/2</a>
-              <a id="halfbutton" class=" text switch switchButton diceShit dicebutton">1/2</a>
-            </div>
-            <div class="toprowholder">
-              <a class="text textSmall diceShit hide">x2</a>
-              <a id="x2button" class="text switch switchButton diceShit dicebutton">x2</a>
-            </div>
-            <div class="toprowholder">
-              <a class="text textSmall diceShit hide">MIN</a>
-              <a id="minbutton" class="text switch switchButton diceShit dicebutton">MIN</a>
-            </div>
-            <div class="toprowholder">
-              <a class="text textSmall diceShit hide">MAX</a>
-              <a id="maxbutton" class="text switch switchButton diceShit dicebutton">MAX</a>
-            </div>
-            <div class="toprowholder">
-              <a class="text textSmall diceShit">PROFIT ON WIN</a>
-              <a id="profitOnWin" class="text diceShit">0.00</a>
-            </div>
-
-
-
-          </div>
-          <div class="middlerow">
-            <div class="toprowholder">
-              <a class="text textSmall diceShit hide">MULTIPLIER</a>
-              <div id="overswitch" class="switch switchButton diceShit">
-                <img class="refresh-icon" src="https://png.icons8.com/material/50/ffffff/refresh.png">
-              </div>
-            </div>
-            <div class="toprowholder">
-              <a id="overundertext" class="text textSmall diceShit"></a>
-              <input id="percentageField" class="textfield diceShit" placeholder="%" ></input>
-            </div>
-            <div class="toprowholder">
-              <a class="text textSmall diceShit">MULTIPLIER</a>
-              <input id="multiplierField" class="textfield diceShit" placeholder="Multiplier" ></input>
-            </div>
-            <div class="toprowholder">
-              <a class="text textSmall diceShit">WIN CHANCE</a>
-              <input id="winchanceField" class="textfield diceShit" placeholder="Chance" ></input><br>
-            </div>
-
           </div>
 
           <div class="bottomcontainer">
-            <div class="slidecontainer">
-              <input type="range" min="1" max="94" value="47" class="sliderD diceShit" id="sliderDice">
-            </div>
-            <a id="rollBTN" class="button diceShit" style="width: 100%;">ROLL</a>
+            <a id="spinSlotsBtn" class="button diceShit" style="width: 100%;">SPIN</a>
             <a id="output" class="text diceShit"></a>
           </div>
         </div>
@@ -159,7 +108,7 @@
     <script src="/clientside/jquery-3.2.1.min.js"></script>
     <script src="/clientside/firebase.js"> </script>
     <script src="/clientside/page.js"></script>
-    <script src="/clientside/dice.js"></script>
+    <script src="/clientside/slots.js"></script>
     <script src="/clientside/chat.js"> </script>
     <script src="/clientside/user.js"> </script>
   </body>

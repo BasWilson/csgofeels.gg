@@ -21,8 +21,8 @@ socket.on('message', function (data) {
 //////////////
 //BET HANDLING
 //////////////
-socket.on('highRoller', function (diceData) {
-  showHighRoller(diceData);
+socket.on('highRoller', function (gameData) {
+  showHighRoller(gameData);
 });
 
 ///////////
@@ -45,13 +45,23 @@ function socketRollDice(dice) {
 }
 
 socket.on('wonDice', function (dicePercentage) {
-  console.log('won dice');
   wonDice(dicePercentage);
 });
 
 socket.on('lostDice', function (dicePercentage) {
   lostDice(dicePercentage);
 });
+
+socket.on('recentDiceGame', function (recentGameData) {
+  appendRecentDiceGame(recentGameData);
+});
+
+//////////
+//SLOTS
+//////////
+function socketSpinSlots(gameData) {
+  socket.emit('slotsData', gameData);
+}
 
 ///////////
 //TIPPING
