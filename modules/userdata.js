@@ -32,7 +32,7 @@ module.exports = {
           balance.balance = parseFloat(newBalance).toFixed(2);
           balance.balance[gameData.userID] = null;
         } else {
-          //Pays the profitOnWin var from the user out if he/she wins
+          //Pays the profitOnWin var - betAmount from the user out if he/she wins
           var newBalance = parseFloat(balance.balance) + parseFloat(gameData.profitOnWin) - parseFloat(gameData.betAmount);
           balance.balance = parseFloat(newBalance).toFixed(2);
           if (!balance.balance) {
@@ -73,7 +73,7 @@ module.exports = {
 
   writeDiceGameToDB: function (gameData, socket) {
 
-    admin.database().ref('users/' + gameData.userID + '/dice/games/' + gameData.gameID).set({
+    admin.database().ref('users/' + gameData.userID + '/games/dice/' + gameData.gameID).set({
       userID: gameData.userID,
       bet: gameData.betAmount,
       profit: gameData.profitOnWin,
@@ -92,6 +92,33 @@ module.exports = {
       win: gameData.win,
       rolledPercentage: gameData.rolledPercentage,
       chosenPercentage: gameData.chosenPercentage
+    });
+
+  },
+
+  writeSlotsGameToDB: function (gameData, socket) {
+
+    admin.database().ref('users/' + gameData.userID + '/games/slots/' + gameData.gameID).set({
+      userID: gameData.userID,
+      bet: gameData.betAmount,
+      profit: gameData.profitOnWin,
+      gameID: gameData.gameID,
+      username: gameData.username,
+      win: gameData.win,
+      slot1: gameData.slot1,
+      slot2: gameData.slot2,
+      slot3: gameData.slot3
+    });
+    admin.database().ref('games/slots/' + gameData.gameID).set({
+      userID: gameData.userID,
+      bet: gameData.betAmount,
+      profit: gameData.profitOnWin,
+      gameID: gameData.gameID,
+      username: gameData.username,
+      win: gameData.win,
+      slot1: gameData.slot1,
+      slot2: gameData.slot2,
+      slot3: gameData.slot3
     });
 
   },

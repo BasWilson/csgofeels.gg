@@ -1,7 +1,11 @@
 module.exports = {
   emitDiceGameToRecents: function (gameData) {
     io.emit('recentDiceGame', gameData);
-}
+},
+
+emitSlotsGameToRecents: function (gameData) {
+  io.emit('recentSlotsGame', gameData);
+},
 };
 
 var express = require('express');

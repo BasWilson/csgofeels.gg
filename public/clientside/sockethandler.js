@@ -62,6 +62,16 @@ socket.on('recentDiceGame', function (recentGameData) {
 function socketSpinSlots(gameData) {
   socket.emit('slotsData', gameData);
 }
+socket.on('wonSlots', function (gameData) {
+  wonSlots(gameData);
+});
+
+socket.on('lostSlots', function (gameData) {
+  lostSlots(gameData);
+});
+socket.on('recentSlotsGame', function (recentGameData) {
+  appendRecentSlotsGame(recentGameData);
+});
 
 ///////////
 //TIPPING

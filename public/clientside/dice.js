@@ -130,3 +130,19 @@ $("#overswitch").click(function() {
     over = true;
   }
 });
+
+function wonDice(dicePercentage) {
+  var win = true;
+  $("#output").text("ROLLED "+ dicePercentage + ", you won!");
+  document.getElementById("output").style.color = "white" ;
+  showPopup(dicePercentage, win);
+  setBalance(win);
+}
+
+function lostDice(dicePercentage) {
+  var win = false;
+  $("#output").text("ROLLED "+ dicePercentage + ", you lost!");
+  document.getElementById("output").style.color = "rgb(244, 75, 66)" ;
+  showPopup(dicePercentage, win);
+  setBalance(win);
+}

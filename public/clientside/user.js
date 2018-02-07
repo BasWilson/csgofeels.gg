@@ -1,20 +1,3 @@
-function wonDice(dicePercentage) {
-  var win = true;
-  $("#output").text("ROLLED "+ dicePercentage + ", you won!");
-  document.getElementById("output").style.color = "white" ;
-  showPopup(dicePercentage, win);
-  setBalance(win);
-}
-
-function lostDice(dicePercentage) {
-  var win = false;
-  $("#output").text("ROLLED "+ dicePercentage + ", you lost!");
-  document.getElementById("output").style.color = "rgb(244, 75, 66)" ;
-  showPopup(dicePercentage, win);
-  setBalance(win);
-}
-
-
 function showPopup(dicePercentage, win, value) {
   //Check if user has disabled popups
   var popups = Cookies.get('dicepopups');
@@ -34,7 +17,7 @@ function showPopup(dicePercentage, win, value) {
   }
 }
 
-function showGenericPopup(text) {
+function showGenericPopup(text, gameData) {
     $("#generic-popup-text").text(text);
     document.getElementById("generic-popup-text").style.color = "white";
     $( ".generic-popup" ).fadeIn("fast")
