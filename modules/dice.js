@@ -21,6 +21,7 @@ var randomFloat = require('random-float');
 var userdata = require('../modules/userdata');
 var general = require('../modules/general');
 var main = require('../main');
+var experience = require('../modules/experience');
 
 function rollDice(gameData, socket, d1, d2, d3, d4, dicePercentage) {
 
@@ -47,6 +48,7 @@ function rollDice(gameData, socket, d1, d2, d3, d4, dicePercentage) {
   }
       userdata.writeDiceGameToDB(gameData); //Read the function above
       userdata.addBalance(gameData); // ^^
+      experience.calculateExperience(gameData);
     } else if (dicePercentage < gameData.chosenPercentage) {
       gameData.win = false;
       socket.emit('lostDice', dicePercentage);
@@ -62,6 +64,7 @@ function rollDice(gameData, socket, d1, d2, d3, d4, dicePercentage) {
     }
       userdata.writeDiceGameToDB(gameData);
       userdata.addBalance(gameData);
+      userdata.writeExperienceToDB(gameData);
     } else if (dicePercentage > gameData.winChance) {
       gameData.win = false;
       socket.emit('lostDice', dicePercentage);

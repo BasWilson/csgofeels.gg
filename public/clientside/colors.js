@@ -1,5 +1,6 @@
 var activeGame = false;
 var user;
+var experience = require('../modules/experience');
 
 setTimeout(function () {
   user = firebase.auth().currentUser;

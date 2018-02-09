@@ -122,6 +122,32 @@ module.exports = {
     });
 
   },
+
+  writeExperienceToDB: function (gameData, socket, exp) {
+
+    var experienceRef = admin.database().ref('users/' + gameData.userID + '/properties/');
+
+    experienceRef.transaction(function(experience) {
+      if (experience) {
+        if (experience.experience && experience.experience[gameData.userID]) {
+          //If anything in the transaction went wrong or the user tried to mess with it, it will be restored.
+          var newExperience = parseFloat(experience.experience) - parseFloat(exp);
+          experience.experience = parseFloat(newExperience).toFixed(2);
+          experience.experience[gameData.userID] = null;
+        } else {
+          //Pays the profitOnWin var - betAmount from the user out if he/she wins
+          var newExperience = parseFloat(experience.experience) + parseFloat(exp);
+          console.log(newExperience);
+          experience.experience = parseFloat(newExperience).toFixed(2);
+          if (!experience.experience) {
+            experience.experience = {};
+          }
+          experience.experience[gameData.userID] = true;
+        }
+      }
+      return experience;
+    });
+  },
 };
 
 var express = require('express');
@@ -135,6 +161,7 @@ var general = require('../modules/general');
 
 var colors = require('../modules/colors');
 var dice = require('../modules/dice');
+var experience = require('../modules/experience');
 
 //ADMIN
 var admin = require('firebase-admin');

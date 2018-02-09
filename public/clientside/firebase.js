@@ -70,22 +70,33 @@ $("#GoogleLogin").click(function() {
 });
 
 //Get balance
-function getBalance(balance, userId) {
+function getBalance(balance, userId, experience) {
+
   var balanceCookie = Cookies.get('balance');
+  var experienceCookie = Cookies.get('experience');
   $('#balance').text(balanceCookie+" COINS");
 
   var user = firebase.auth().currentUser;
   userId = user.uid;
   firebase.database().ref('/users/' + userId + '/properties/').once('value').then(function(snapshot) {
     balance = (snapshot.val() && snapshot.val().balance);
-
+    experience = (snapshot.val() && snapshot.val().experience);
+    console.log(balance);
+    console.log(experience);
 	  if (balance == null) {
 		  balance = 0.00;
 	    $('#balance').text("0.00 COINS");
 	  } else {
 		$('#balance').text(balance+" COINS");
 	  }
+
+    if (experience == null) {
+      experience = 0.00;
+    } else {
+      //visually set experience
+    }
     Cookies.set('balance', balance);
+    Cookies.set('experience', experience);
 
   });
 }
