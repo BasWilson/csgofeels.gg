@@ -92,7 +92,7 @@ io.on('connection', function(socket){
   ///TIPPING
   socket.on('sendTip', function (tipData) {
 
-    if (tipData.tipAmount <= 0.0) {
+    if (tipData.tipAmount <= 0.0 || tipData.tipAmount == "NaN" || tipData.tipAmount == "") {
       socket.emit('invalidTip');
     } else {
       tipping.getBalanceForTip(tipData, socket);
